@@ -1,0 +1,901 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Cravdo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;500;600&family=Caveat:wght@500;600&display=swap">
+<style>
+/* Layout concept: one long butter-and-blue scroll. A narrow arch window at the top widens into the shop,
+   story sheets slide over each other, the menu travels sideways, the founder sits in an arch of his own. */
+:root{
+  --butter:#F8E7A4;
+  --bg:#FBF3D3; --surface:#FFFBEA; --fg:#23375A; --muted:#566D94; --accent:#4A6C9D; --line:rgba(35,55,90,.15);
+  --hero-bg:#F8E7A4; --wm:#3F6199; --sky-bg:#C9DBF2;
+  --card-a:#F6DF8E; --on-a:#23375A; --card-b:#4A6C9D; --on-b:#FFF6D0;
+  --deep:#2B4673; --on-deep:#FBEFB8;
+  --btn-bg:#23375A; --btn-fg:#FFF6D0;
+  --qr-bg:#FFF6D0; --qr-fg:#23375A; --on-photo:#FFF6D0;
+  --f-display:'Fredoka','Trebuchet MS',system-ui,sans-serif;
+  --f-body:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-script:'Caveat','Segoe Script',cursive;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14203A; --surface:#1D2D4D; --fg:#F8EBB5; --muted:#A8B8D6; --accent:#F2D878; --line:rgba(248,235,181,.17);
+    --hero-bg:#1A2A48; --wm:#F2D878; --sky-bg:#223760;
+    --card-a:#F2D878; --on-a:#1F3253; --card-b:#4A6C9D; --on-b:#FFF6D0;
+    --deep:#0E1830; --on-deep:#F8EBB5;
+    --btn-bg:#F2D878; --btn-fg:#1F3253; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14203A; --surface:#1D2D4D; --fg:#F8EBB5; --muted:#A8B8D6; --accent:#F2D878; --line:rgba(248,235,181,.17);
+  --hero-bg:#1A2A48; --wm:#F2D878; --sky-bg:#223760;
+  --card-a:#F2D878; --on-a:#1F3253; --card-b:#4A6C9D; --on-b:#FFF6D0;
+  --deep:#0E1830; --on-deep:#F8EBB5;
+  --btn-bg:#F2D878; --btn-fg:#1F3253; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:17px;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,p{margin:0}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
+.wrap{width:100%;max-width:1200px;margin-inline:auto;padding-inline:max(16px,4vw)}
+.eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.h2{font-family:var(--f-display);font-weight:600;font-size:clamp(2rem,5.2vw,3.7rem);line-height:1.05;letter-spacing:-.01em;text-wrap:balance}
+.script{font-family:var(--f-script);font-weight:600;line-height:1.05}
+.lede{color:var(--muted);max-width:52ch;font-size:1.06rem}
+
+/* progress + nav */
+.progress{position:fixed;top:0;left:0;height:3px;width:calc(var(--sp,0)*100%);background:var(--accent);z-index:70}
+.nav{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);left:50%;transform:translateX(-50%);z-index:60;width:min(940px,calc(100% - 32px));
+  display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 8px 10px;border-radius:999px;
+  background:color-mix(in srgb,var(--surface) 80%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-display);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:1.02rem}
+.brand img{width:36px;height:36px;border-radius:10px}
+.links{display:flex;gap:4px}
+.links a{text-decoration:none;font-weight:500;font-size:.94rem;padding:8px 14px;border-radius:999px;color:var(--muted)}
+.links a:hover{background:var(--line);color:var(--fg)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:.98rem;text-decoration:none;
+  background:var(--btn-bg);color:var(--btn-fg);border:0;cursor:pointer;font-family:inherit;transition:transform .25s ease,box-shadow .25s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(20,32,58,.55)}
+.btn svg{width:20px;height:20px}
+.btn.sm{padding:10px 18px;font-size:.9rem}
+.btn.ghost{background:transparent;color:inherit;border:1.5px solid currentColor}
+
+/* hero */
+.hero{height:250svh;position:relative}
+.hero-stage{position:sticky;top:0;height:100svh;overflow:hidden;background:var(--hero-bg)}
+.hero-copy{position:absolute;inset:0 0 58svh 0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:76px 16px 8px;gap:6px;will-change:transform,opacity}
+.wordmark{font-family:var(--f-display);font-weight:700;font-size:clamp(3.4rem,14.5vw,10.5rem);line-height:.9;letter-spacing:.03em;color:var(--wm);text-transform:uppercase}
+.wordmark span{display:inline-block;animation:rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*70ms + 120ms)}
+@keyframes rise{from{transform:translateY(45%);opacity:0}}
+.hero-copy .script{font-size:clamp(1.5rem,3.6vw,2.4rem);color:var(--fg)}
+.hero-arch{position:absolute;left:50%;bottom:0;width:min(62vw,420px);height:58svh;transform:translateX(-50%);border-radius:210px 210px 0 0;overflow:hidden;background:var(--card-b);will-change:width,height}
+.hero-arch img{width:100%;height:100%;object-fit:cover;object-position:28% 42%;transform:scale(1.1);will-change:transform}
+.hero-arch::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,32,58,0) 45%,rgba(20,32,58,.7));opacity:var(--shade,.25);pointer-events:none}
+.hero-cap{position:absolute;left:0;right:0;bottom:12svh;text-align:center;color:var(--on-photo);padding-inline:16px;opacity:0;z-index:2}
+.hero-cap .script{font-size:clamp(2.4rem,7vw,5rem)}
+.hero-cap p:last-child{margin-top:8px;font-size:1rem;opacity:.9}
+.cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--on-photo);font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+.cue i{display:block;width:2px;height:34px;background:currentColor;opacity:.7;transform-origin:top;animation:drip 1.8s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0)}60%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+/* sheets */
+.sheet{position:relative;z-index:2;border-radius:40px 40px 0 0;margin-top:-40px;background:var(--bg)}
+
+/* story */
+.story{padding-block:clamp(72px,11vw,140px)}
+.story-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(36px,7vw,110px);align-items:start}
+.story-head{position:sticky;top:120px;display:grid;gap:20px}
+.tl{list-style:none;margin:0;padding:0 0 0 48px;position:relative;display:grid;gap:44px}
+.tl::before,.tl::after{content:"";position:absolute;left:15px;top:8px;width:3px;border-radius:3px}
+.tl::before{bottom:8px;background:var(--line)}
+.tl::after{height:calc((100% - 16px)*var(--tl,0));background:var(--accent)}
+.tl li{position:relative}
+.tl li::before{content:"";position:absolute;left:-40px;top:5px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--accent);transition:background .4s,transform .4s}
+.tl li.on::before{background:var(--accent);transform:scale(1.25)}
+.tl .eyebrow{display:block;margin-bottom:6px}
+.tl h3{font-family:var(--f-display);font-weight:600;font-size:clamp(1.4rem,2.6vw,1.9rem);line-height:1.15;margin-bottom:8px}
+.tl p{color:var(--muted);max-width:46ch}
+
+/* menu, horizontal */
+.hscroll{position:relative;z-index:3;margin-top:-40px;border-radius:40px 40px 0 0;background:var(--sky-bg)}
+.hs-stage{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;justify-content:center;gap:clamp(20px,4svh,40px);overflow:hidden}
+.hs-head{display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.hs-head .h2{max-width:14ch}
+.hs-hint{font-size:.9rem;color:var(--muted);display:flex;align-items:center;gap:8px;font-weight:500}
+.track{display:flex;gap:20px;width:max-content;padding-inline:max(16px,calc((100vw - 1200px)/2 + 4vw));will-change:transform}
+.card{flex:0 0 auto;width:clamp(250px,70vw,320px);height:clamp(320px,50svh,420px);border-radius:32px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.card.a{background:var(--card-a);color:var(--on-a)}
+.card.b{background:var(--card-b);color:var(--on-b)}
+.card.c{background:var(--surface);color:var(--fg)}
+.card svg{width:64px;height:64px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.chip{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px;border-radius:999px;border:1.5px solid currentColor;opacity:.85;white-space:nowrap}
+.card h3{font-family:var(--f-display);font-weight:600;font-size:clamp(1.7rem,3.2vw,2.2rem);line-height:1.05;margin-bottom:8px}
+.card p{font-size:.95rem;opacity:.88}
+.card.intro{width:clamp(270px,76vw,360px);background:transparent;padding:0;justify-content:center;gap:16px;color:var(--fg)}
+.card.intro .script{font-size:2rem;color:var(--accent)}
+.card.photo{width:clamp(300px,82vw,520px);padding:0;background:var(--card-b)}
+.card.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,32,58,0) 50%,rgba(20,32,58,.72))}
+.card.photo div{position:absolute;left:24px;right:24px;bottom:22px;z-index:2;color:var(--on-photo)}
+.hbar{height:6px;border-radius:6px;background:var(--line);overflow:hidden}
+.hbar i{display:block;height:100%;background:var(--accent);transform-origin:left;transform:scaleX(var(--hp,0.05));border-radius:6px}
+.hscroll.flat{height:auto!important}
+.hscroll.flat .hs-stage{position:static;height:auto;padding-block:72px}
+.hscroll.flat .track{overflow-x:auto;width:auto;transform:none!important;padding-bottom:12px}
+
+/* space */
+.space{background:var(--bg);padding-top:clamp(56px,8vw,96px)}
+.space-frame{position:relative;height:min(90svh,820px);overflow:hidden;clip-path:inset(var(--cy,8%) var(--cx,6%) round var(--cr,40px));background:var(--card-b)}
+.space-frame img{position:absolute;left:0;top:-8%;width:100%;height:116%;object-fit:cover;object-position:30% 45%;will-change:transform}
+.space-frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,32,58,0) 35%,rgba(20,32,58,.82))}
+.space-txt{position:absolute;inset:auto 0 0 0;z-index:2;padding-bottom:clamp(28px,6vw,64px);color:var(--on-photo);display:grid;gap:12px}
+.space-txt .eyebrow{color:var(--on-photo);opacity:.85}
+.space-txt .h2{max-width:16ch}
+.space-txt .script{font-size:clamp(1.7rem,3.6vw,2.4rem)}
+.note{font-size:.82rem;opacity:.8}
+
+/* founder */
+.founder{background:var(--bg);padding-block:clamp(72px,11vw,150px)}
+.founder-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(40px,8vw,120px);align-items:center}
+.photo{position:relative;width:100%;max-width:440px;margin-inline:auto}
+.photo::before{content:"";position:absolute;inset:0;border:3px solid var(--accent);border-radius:999px 999px 32px 32px;transform:translate(18px,18px)}
+.arch-frame{position:relative;aspect-ratio:3/4;border-radius:999px 999px 32px 32px;overflow:hidden;background:var(--card-b)}
+.arch-frame img{position:absolute;left:0;top:-5%;width:100%;height:110%;object-fit:cover;object-position:46% 30%;will-change:transform}
+.founder-txt{display:grid;gap:20px;min-width:0}
+.founder-txt .role{font-size:clamp(1.7rem,3.4vw,2.3rem);color:var(--accent)}
+.name{font-family:var(--f-display);font-weight:700;font-size:clamp(2.6rem,7vw,5rem);line-height:.95;letter-spacing:-.01em}
+.bio{display:grid;gap:14px;justify-items:start}
+.bio-more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .65s cubic-bezier(.2,.7,.2,1)}
+.bio-more.open{grid-template-rows:1fr}
+.bio-more>div{overflow:hidden;min-height:0;display:grid;gap:14px;opacity:0;transition:opacity .5s ease}
+.bio-more.open>div{opacity:1}
+.bio-more:not(.open)>div{visibility:hidden;transition:opacity .3s ease,visibility 0s .65s}
+.more-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;border:1.5px solid var(--accent);background:transparent;color:var(--accent);font:600 .92rem var(--f-body);cursor:pointer;transition:background .25s,color .25s}
+.more-btn:hover{background:var(--accent);color:var(--bg)}
+.more-btn svg{transition:transform .4s}
+.more-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:8px 0 0;padding-top:20px;border-top:1px solid var(--line)}
+.facts dt{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.facts dd{margin:4px 0 0;font-family:var(--f-display);font-weight:500;font-size:1.1rem;line-height:1.25}
+
+/* connect */
+.connect{background:var(--deep);color:var(--on-deep);padding-block:clamp(72px,11vw,140px);z-index:4}
+.connect .eyebrow{color:var(--on-deep);opacity:.8}
+.connect-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(36px,7vw,100px);align-items:start}
+.connect .lede{color:var(--on-deep);opacity:.82}
+.rows{display:grid;gap:14px;margin-top:28px}
+.row{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:22px;border:1px solid color-mix(in srgb,var(--on-deep) 20%,transparent);background:color-mix(in srgb,var(--on-deep) 8%,transparent);text-decoration:none;color:inherit;transition:background .25s,transform .25s;min-width:0}
+a.row:hover{background:color-mix(in srgb,var(--on-deep) 16%,transparent);transform:translateX(4px)}
+.row .ic{flex:0 0 46px;height:46px;border-radius:50%;background:var(--on-deep);color:var(--deep);display:grid;place-items:center}
+.row .ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.row .tx{display:grid;min-width:0;flex:1}
+.row .tx small{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;opacity:.7;font-weight:600}
+.row .tx b{font-family:var(--f-display);font-weight:500;font-size:1.2rem;overflow-wrap:anywhere}
+.row .tx a{text-decoration:none}
+.copy{border:1.5px solid currentColor;background:transparent;color:inherit;border-radius:999px;padding:8px 14px;font:600 .82rem var(--f-body);cursor:pointer}
+.copy:hover{background:var(--on-deep);color:var(--deep)}
+.qr{background:var(--qr-bg);color:var(--qr-fg);border-radius:36px;padding:clamp(22px,4vw,34px);text-align:center;display:grid;gap:16px;justify-items:center}
+.qr h3{font-family:var(--f-display);font-weight:600;font-size:1.6rem;line-height:1.1}
+.qr-box{width:236px;height:236px;max-width:100%;display:grid;place-items:center;background:#fff;border-radius:22px;padding:14px}
+.qr-box img,.qr-box canvas{max-width:100%;height:auto}
+.qr-box canvas{display:none!important}
+.qr-box span{font-size:.85rem;color:var(--qr-fg);padding:8px}
+.qr label{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;opacity:.75}
+.qr input{width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid color-mix(in srgb,var(--qr-fg) 30%,transparent);background:#fff;color:var(--qr-fg);font:500 .92rem var(--f-body)}
+.qr p{font-size:.84rem;opacity:.75;max-width:30ch}
+footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;border-top:1px solid color-mix(in srgb,var(--on-deep) 18%,transparent);position:relative;z-index:4}
+.foot .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot .brand img{width:44px;height:44px}
+.foot small{opacity:.75}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);transform:translate(-50%,30px);opacity:0;background:var(--btn-bg);color:var(--btn-fg);padding:12px 20px;border-radius:999px;font-weight:600;font-size:.92rem;z-index:80;pointer-events:none;transition:.35s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+[hidden]{display:none!important}
+/* order + carts */
+.svc{background:var(--bg);padding-block:clamp(64px,9vw,120px)}
+.svc-head{display:grid;gap:14px;margin-bottom:clamp(28px,5vw,52px)}
+.svc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,3vw,28px)}
+.svc-card{display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding:clamp(22px,3.4vw,36px);border-radius:32px;background:var(--surface);border:1px solid var(--line);min-width:0}
+.svc-card.cart{background:var(--card-a);color:var(--on-a);border-color:transparent}
+.svc-card h3{font-family:var(--f-display);font-weight:600;font-size:clamp(1.7rem,3.4vw,2.3rem);line-height:1.05}
+.svc-card p{color:var(--muted);max-width:50ch}
+.svc-card.cart p{color:inherit;opacity:.88}
+.svc-card .note{font-size:.84rem}
+.svc-card .btn{margin-top:auto}
+.tag{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:999px;border:1.5px solid currentColor;color:var(--accent)}
+.tag.soon{color:inherit}
+.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.ticks li{position:relative;padding-left:26px;color:var(--fg);font-size:.97rem}
+.ticks li::before{content:"";position:absolute;left:2px;top:.45em;width:12px;height:7px;border-left:2.5px solid var(--accent);border-bottom:2.5px solid var(--accent);transform:rotate(-45deg)}
+.mini{width:100%;border-radius:22px;overflow:hidden;border:1px solid color-mix(in srgb,var(--on-a) 20%,transparent)}
+.map{display:block;width:min(100%,calc(46svh*1.25));aspect-ratio:400/320;height:auto;margin-inline:auto;border-radius:20px}
+.mini .map{width:100%}
+.map .land{fill:var(--bg)}
+.map .water{fill:var(--sky-bg)}
+.map .park{fill:color-mix(in srgb,var(--card-a) 38%,var(--bg))}
+.map .road-o{fill:none;stroke:var(--line);stroke-width:15;stroke-linecap:round}
+.map .road{fill:none;stroke:var(--surface);stroke-width:11;stroke-linecap:round}
+.map .ring{fill:none;stroke:var(--accent);stroke-width:1.5;stroke-dasharray:4 5;opacity:.7}
+.map .ring-t{fill:var(--accent);font:600 10px var(--f-body)}
+.map .pulse{fill:var(--card-b);opacity:.35;transform-box:fill-box;transform-origin:center;animation:pulse 2.2s ease-out infinite}
+.map .udot{fill:var(--card-b);stroke:var(--surface);stroke-width:3}
+.map .you{fill:var(--fg);font:600 11px var(--f-body);text-anchor:middle}
+.map .pin-bg{fill:var(--card-a);stroke:var(--fg);stroke-width:2.5;transition:transform .25s}
+.map .pin-t{fill:var(--on-a);font:700 15px var(--f-display);text-anchor:middle;pointer-events:none}
+.map .pin-l{fill:var(--fg);font:600 10.5px var(--f-body);text-anchor:middle;paint-order:stroke;stroke:var(--bg);stroke-width:3px;pointer-events:none}
+.map .near .pin-bg{stroke-width:4}
+.map .halo{fill:none;stroke:var(--accent);stroke-width:2;transform-box:fill-box;transform-origin:center;animation:pulse 2s ease-out infinite}
+.map .pin{cursor:pointer;outline:none}
+.map .pin:hover .pin-bg,.map .pin:focus-visible .pin-bg{transform:scale(1.15)}
+.map .pin:focus-visible .pin-bg{stroke:var(--accent);stroke-width:5}
+@keyframes pulse{from{transform:scale(1);opacity:.5}to{transform:scale(2.6);opacity:0}}
+
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:12px}
+.modal[hidden]{display:none}
+.scrim{position:absolute;inset:0;background:rgba(14,24,48,.62);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:fade .3s ease}
+.panel{position:relative;width:min(720px,100%);max-height:calc(100svh - 24px);display:flex;flex-direction:column;background:var(--surface);color:var(--fg);border-radius:30px;box-shadow:0 30px 80px -20px rgba(0,0,0,.5);overflow:hidden;animation:pop .4s cubic-bezier(.2,.8,.2,1);outline:none}
+@keyframes fade{from{opacity:0}}
+@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.98)}}
+.m-head{display:flex;align-items:center;gap:12px;padding:18px 18px 14px 24px;border-bottom:1px solid var(--line)}
+.m-titles{flex:1;min-width:0;display:grid;gap:2px}
+.m-head h2{font-family:var(--f-display);font-weight:600;font-size:1.45rem;line-height:1.1}
+.icon-btn{flex:0 0 auto;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);background:transparent;color:inherit;cursor:pointer;display:grid;place-items:center}
+.icon-btn:hover{background:var(--line)}
+.m-body{padding:20px 24px 24px;overflow:auto;display:grid;gap:16px;align-content:start;grid-auto-rows:max-content;min-height:0}
+.m-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:14px 24px calc(14px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:var(--surface)}
+.m-foot[hidden]{display:none}
+.m-foot .tot{display:grid;line-height:1.2}
+.m-foot .tot small{color:var(--muted);font-size:.8rem}
+.m-foot .tot b{font-family:var(--f-display);font-size:1.4rem;font-weight:600}
+.m-foot .acts{display:flex;gap:10px;flex-wrap:wrap}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.m-note{padding:12px 14px;border-radius:16px;background:var(--bg);font-size:.9rem;color:var(--muted)}
+.m-note b{color:var(--fg)}
+.m-small{font-size:.86rem;color:var(--muted)}
+.maprow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.clist{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.crow{width:100%;display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:20px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit;text-align:left;cursor:pointer;transition:transform .2s,border-color .2s}
+.crow:hover{transform:translateX(4px);border-color:var(--accent)}
+.crow .cl{flex:1;min-width:0;display:grid}
+.crow b{font-family:var(--f-display);font-weight:500;font-size:1.1rem}
+.crow small{color:var(--muted)}
+.crow .badge{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:var(--card-a);color:var(--on-a)}
+.mlist{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.mi{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:20px;border:1px solid var(--line);background:var(--bg)}
+.mi .mt{flex:1;min-width:0;display:grid}
+.mi b{font-family:var(--f-display);font-weight:500;font-size:1.1rem}
+.mi small{color:var(--muted)}
+.mi .pr{font-weight:600;font-variant-numeric:tabular-nums}
+.stepper{display:flex;align-items:center;gap:8px}
+.stepper button{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--accent);background:transparent;color:var(--accent);font:600 1.15rem var(--f-body);cursor:pointer;line-height:1}
+.stepper button:hover{background:var(--accent);color:var(--bg)}
+.stepper output{min-width:1.6em;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
+.form{display:grid;gap:14px}
+.form .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form label{display:grid;gap:6px;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);min-width:0}
+.form input,.form select,.form textarea{width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);color:var(--fg);font:500 1rem var(--f-body);text-transform:none;letter-spacing:0}
+.form textarea{min-height:84px;resize:vertical}
+.err{color:#B3261E;font-weight:600;font-size:.9rem}
+:root[data-theme="dark"] .err{color:#FFB4A9}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .err{color:#FFB4A9}}
+.sum{display:grid;gap:8px;padding:16px;border-radius:20px;background:var(--bg)}
+.sum div{display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums}
+.sum .t{padding-top:10px;border-top:1px solid var(--line);font-weight:700;font-size:1.1rem}
+.sum span:first-child{min-width:0}
+.pays{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.pays label{display:grid;place-items:center;padding:14px 8px;border-radius:16px;border:1.5px solid var(--line);cursor:pointer;font-weight:600;text-align:center}
+.pays input{position:absolute;opacity:0;pointer-events:none}
+.pays label:has(input:checked){border-color:var(--accent);background:var(--bg);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.pays label:has(input:focus-visible){outline:3px solid var(--accent);outline-offset:2px}
+.done{display:grid;gap:14px;justify-items:center;text-align:center;padding-block:8px}
+.done .check{width:72px;height:72px;border-radius:50%;background:var(--card-a);color:var(--on-a);display:grid;place-items:center}
+.done .check svg{width:36px;height:36px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.done h3{font-family:var(--f-display);font-weight:600;font-size:1.7rem}
+.oid{display:flex;align-items:center;gap:12px;padding:12px 12px 12px 20px;border-radius:20px;border:2px dashed var(--accent);background:var(--bg)}
+.oid b{font-family:var(--f-display);font-size:1.7rem;font-weight:600;letter-spacing:.08em}
+.done p{color:var(--muted);max-width:44ch}
+.done .acts{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.toast{z-index:120}
+@media (max-width:640px){
+  .svc-grid{grid-template-columns:minmax(0,1fr)}
+  .modal{padding:0;place-items:end center}
+  .panel{max-height:94svh;border-radius:28px 28px 0 0}
+  .m-body,.m-foot{padding-inline:16px}
+  .m-head{padding-left:16px}
+  .form .two{grid-template-columns:1fr}
+  .pays{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){.map .pulse,.map .halo,.panel,.scrim{animation:none}}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.js .rv.in{opacity:1;transform:none}
+
+@media (max-width:860px){
+  .links{display:none}
+  .story-grid,.founder-grid,.connect-grid{grid-template-columns:minmax(0,1fr)}
+  .story-head{position:static}
+  .facts{grid-template-columns:1fr 1fr}
+  .photo{max-width:340px;margin-bottom:18px}
+}
+@media (max-width:420px){ .btn.sm span{display:none} .btn.sm{padding:10px 12px} }
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .wordmark span,.cue i{animation:none}
+  .js .rv{opacity:1;transform:none;transition:none}
+}
+</style>
+
+<script>document.documentElement.classList.add('js')</script>
+<div class="progress" aria-hidden="true"></div>
+
+<nav class="nav" aria-label="Main">
+  <a class="brand" href="#top" data-go="top"><img src="img/logo.jpg" alt="Cravdo logo"><span>Cravdo</span></a>
+  <div class="links">
+    <a href="#order" data-go="order">Order</a>
+    <a href="#story" data-go="story">Update</a>
+    <a href="#menu" data-go="menu">Kitchen</a>
+    <a href="#founder" data-go="founder">Founder</a>
+    <a href="#connect" data-go="connect">Connect</a>
+  </div>
+  <button class="btn sm" type="button" data-open="order">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11H6.200z"/><path d="M9 8V7a3 3 0 0 1 6 0v1"/></svg>
+    <span>Order now</span></button>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-stage">
+    <div class="hero-copy">
+      <p class="eyebrow">Healthy desserts · Since 2025</p>
+      <h1 class="wordmark" aria-label="Cravdo"><span style="--i:0">C</span><span style="--i:1">R</span><span style="--i:2">A</span><span style="--i:3">V</span><span style="--i:4">D</span><span style="--i:5">O</span></h1>
+      <p class="script">Bite Me, I’m Cravdo.</p>
+    </div>
+    <div class="hero-arch">
+      <img src="img/interior.jpg" alt="Concept of the Cravdo café in butter yellow and pastel blue">
+      <div class="hero-cap"><p class="script">Made with love.</p><p>Here is where Cravdo is, and where it is going.</p></div>
+      <div class="cue" aria-hidden="true"><span>Scroll</span><i></i></div>
+    </div>
+  </div>
+</header>
+
+<section class="sheet svc" id="order">
+  <div class="wrap">
+    <div class="svc-head">
+      <p class="eyebrow rv">Order</p>
+      <h2 class="h2 rv" style="--d:.08s">Get Cravdo your way.</h2>
+    </div>
+    <div class="svc-grid">
+      <article class="svc-card rv">
+        <span class="tag">Delhi NCR only</span>
+        <h3>Order for delivery</h3>
+        <p>Pick from the menu, pay, and we bring it to you anywhere in Delhi NCR. Delivery is charged extra and depends on your location.</p>
+        <ul class="ticks">
+          <li>Delhi, Noida, Greater Noida, Gurugram, Ghaziabad, Faridabad</li>
+          <li>Delivery charge confirmed before you pay</li>
+          <li>The full Cravdo menu is coming soon</li>
+        </ul>
+        <button class="btn" type="button" data-open="order">Choose from the menu</button>
+      </article>
+      <article class="svc-card cart rv" id="carts" style="--d:.1s">
+        <span class="tag soon">This option is coming soon</span>
+        <h3>Cravdo Carts</h3>
+        <p>Trackable Cravdo carts are on their way. Soon you will open a map, spot the nearest cart, order from its menu, pay, and collect with your order ID.</p>
+        <div class="mini" id="miniMap" aria-hidden="true"></div>
+        <button class="btn" type="button" data-open="cart">Order From Cravdo Cart near you</button>
+        <p class="note">Try the demo to see how it will work. No real carts or payments yet.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sheet story" id="story">
+  <div class="wrap story-grid">
+    <div class="story-head">
+      <p class="eyebrow rv">The Cravdo update</p>
+      <h2 class="h2 rv" style="--d:.08s">Started as healthy fast food. Growing into healthy desserts.</h2>
+      <p class="lede rv" style="--d:.16s">Cravdo began in 2025 with one simple idea: food that is quick and still good for you. Along the way we started making healthy desserts too, and that is what our kitchen is busy with right now.</p>
+    </div>
+    <ol class="tl" id="tl">
+      <li class="rv"><span class="eyebrow">2025</span><h3>The idea</h3><p>Healthy fast food. Simple, quick, and made to leave you feeling good.</p></li>
+      <li class="rv"><span class="eyebrow">Then</span><h3>Desserts joined in</h3><p>We began making healthy desserts, so a sweet craving doesn’t have to come with guilt.</p></li>
+      <li class="rv"><span class="eyebrow">Now</span><h3>In the kitchen</h3><p>We are preparing cakes, popsicle cakes, pop cakes, bento cakes, brownies, breads, donuts and more.</p></li>
+      <li class="rv"><span class="eyebrow">Next</span><h3>What we are building toward</h3><p>A full dessert range, healthy fast food on the menu, and a Cravdo space of our own.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="hscroll" id="menu" aria-label="What is in the Cravdo kitchen">
+  <div class="hs-stage">
+    <div class="wrap hs-head">
+      <div style="display:grid;gap:14px"><p class="eyebrow">Now in our kitchen</p><h2 class="h2">What we are baking up</h2></div>
+      <p class="hs-hint">Keep scrolling <svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 6h19M15 1l5 5-5 5"/></svg></p>
+    </div>
+    <div class="track" id="track">
+      <article class="card intro"><p class="script">Small bites, big impact.</p><p class="lede">Every item below is being prepared right now. Names and flavours will be announced here first.</p></article>
+      <article class="card a"><div class="top"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="10" y="30" width="44" height="22" rx="6"/><path d="M10 40c6 5 10 5 15 0s10-5 15 0 10 5 14 0"/><path d="M32 30V21"/><path d="M32 11c3 4 3 6 0 9-3-3-3-5 0-9z"/></svg><span class="chip">In the kitchen</span></div><div><h3>Cakes</h3><p>Made to share, lighter on the guilt.</p></div></article>
+      <article class="card b"><div class="top"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="16" y="6" width="32" height="36" rx="14"/><path d="M16 24h32M32 42v16"/></svg><span class="chip">In the kitchen</span></div><div><h3>Popsicle cakes</h3><p>Cake on a stick, cold and fun.</p></div></article>
+      <article class="card c"><div class="top"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="22" r="15"/><path d="M32 37v21M22 18c4 3 9 3 13 0"/></svg><span class="chip">In the kitchen</span></div><div><h3>Pop cakes</h3><p>Bite-sized cake pops for small cravings.</p></div></article>
+      <article class="card a"><div class="top"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="18" width="48" height="30" rx="10"/><path d="M32 18v30"/><circle cx="20" cy="33" r="5"/></svg><span class="chip">In the kitchen</span></div><div><h3>Bento cakes</h3><p>Small boxed cakes for one, or for gifting.</p></div></article>
+      <article class="card b"><div class="top"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="10" y="14" width="44" height="36" rx="8"/><path d="M10 26h44M10 38h44M25 14v36M40 14v36"/></svg><span class="chip">In the kitchen</span></div><div><h3>Brownies</h3><p>Rich and fudgy, made the healthier way.</p></div></article>
+      <article class="card c"><div class="top"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 44V32c0-12 9-20 22-20s22 8 22 20v12c0 4-3 6-6 6H16c-3 0-6-2-6-6z"/><path d="M24 24l-4 10M34 22l-4 12M44 24l-4 10"/></svg><span class="chip">In the kitchen</span></div><div><h3>Breads</h3><p>Wholesome loaves and bakes.</p></div></article>
+      <article class="card a"><div class="top"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="22"/><circle cx="32" cy="32" r="8"/><path d="M18 22l5 3M44 18l-3 5M47 36l-5-2M30 50l1-5M17 38l5-1"/></svg><span class="chip">In the kitchen</span></div><div><h3>Donuts</h3><p>Soft and baked, with room for toppings.</p></div></article>
+      <article class="card b"><div class="top"><svg viewBox="0 0 64 64" aria-hidden="true" style="fill:currentColor"><circle cx="16" cy="32" r="4"/><circle cx="32" cy="32" r="4"/><circle cx="48" cy="32" r="4"/></svg></div><div><h3>And much more</h3><p>The list keeps growing. Tell us what you crave.</p></div></article>
+      <article class="card photo"><img src="img/case.jpg" alt="Concept of the Cravdo display case with donuts, brownies, cheesecake jars, cookies and breads" loading="lazy"><div><h3>The display, imagined</h3><p class="note">Concept render</p></div></article>
+    </div>
+    <div class="wrap"><div class="hbar"><i id="hbar"></i></div></div>
+  </div>
+</section>
+
+<section class="space" id="space">
+  <div class="space-frame" id="spaceFrame">
+    <img src="img/interior.jpg" alt="Concept of the Cravdo café with a butter yellow wall and pastel blue counter" data-par="60" loading="lazy">
+    <div class="space-txt"><div class="wrap" style="display:grid;gap:12px">
+      <p class="eyebrow">The space we are building toward</p>
+      <h2 class="h2">A warm corner for guilt-free sweets.</h2>
+      <p class="script">Eat sweet, feel good, live well.</p>
+      <p class="note">Concept render of the Cravdo café.</p>
+    </div></div>
+  </div>
+</section>
+
+<section class="founder" id="founder">
+  <div class="wrap founder-grid">
+    <div class="photo rv"><div class="arch-frame"><img src="img/azym.jpg" alt="Azym Malik, founder and CEO of Cravdo" data-par="36" loading="lazy"></div></div>
+    <div class="founder-txt">
+      <p class="eyebrow rv">Meet the founder</p>
+      <h2 class="name rv" style="--d:.08s">Azym Malik</h2>
+      <p class="script role rv" style="--d:.14s">Founder &amp; CEO</p>
+      <div class="bio rv" style="--d:.2s">
+        <p class="lede">Azym’s entrepreneurial journey started long before CRAVDO. As early as Class 4, he would fill the backs of his notebooks with sketches of products, brand names and ideas for businesses. He always wanted to build something of his own, not simply follow a conventional career path.</p>
+        <div class="bio-more" id="bioMore"><div id="bioBody">
+          <p class="lede">When he entered college in 2021, that curiosity grew into a constant search for problems worth solving. He came up with countless ideas, studied how products and businesses could work, and explored different possibilities, but limited resources meant many of those ideas remained on paper.</p>
+          <p class="lede">His interest in food developed alongside another long-standing passion: fitness and muscle building. Having trained since 2017, Azym became increasingly interested in nutrition and the science behind what we eat. His own health journey pushed him to learn even more about balanced nutrition, including proteins, carbohydrates, fats, fibre and how different foods interact with the body. He spent hours researching nutrition, digestion and food science, often analysing the nutritional value of everyday meals and experimenting with healthier ways of preparing them.</p>
+          <p class="lede">That curiosity eventually led him to pursue hands-on learning in baking. What started as learning a new skill became the foundation for something much bigger: building a food brand around products that are delicious first, but thoughtfully made.</p>
+          <p class="lede">In 2025, the idea of CRAVDO began taking shape. Azym had been developing foods such as protein-rich burgers, whole-wheat and ragi-based buns, and other better-balanced alternatives, while still focusing heavily on taste. The response from people around him made one thing clear: healthier food doesn’t have to mean compromising on flavour.</p>
+          <p class="lede">Today, CRAVDO is beginning with desserts and bakery products while working toward a much broader vision, creating a food brand that offers better alternatives to everyday foods, from desserts and fast food to nutrition-focused products. The goal is not to make food feel restrictive or complicated, but to make better choices more accessible, enjoyable and crave-worthy.</p>
+          <p class="lede">CRAVDO is where Azym’s childhood instinct to build, his years of fitness and nutrition research, and his passion for food come together.</p>
+        </div></div>
+        <button class="more-btn" id="bioBtn" type="button" aria-expanded="false" aria-controls="bioBody"><span>Show more</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5l5 5 5-5"/></svg></button>
+      </div>
+      <dl class="facts rv" style="--d:.26s">
+        <div><dt>Founded</dt><dd>2025</dd></div>
+        <div><dt>Role</dt><dd>Founder &amp; CEO</dd></div>
+        <div><dt>Making</dt><dd>Healthy food &amp; desserts</dd></div>
+      </dl>
+      <div class="rv" style="--d:.3s"><a class="btn" href="https://wa.me/917900690012?text=Hi%20Azym%2C%20I%20saw%20the%20Cravdo%20update%20page." target="_blank" rel="noopener">Say hello on WhatsApp</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="sheet connect" id="connect">
+  <div class="wrap connect-grid">
+    <div>
+      <p class="eyebrow rv">Stay in the loop</p>
+      <h2 class="h2 rv" style="--d:.08s">Follow the Cravdo journey.</h2>
+      <p class="lede rv" style="--d:.14s">Message us, follow along, or write in. We read everything.</p>
+      <div class="rows">
+        <a class="row rv" style="--d:.1s" href="https://wa.me/917900690012?text=Hi%20Cravdo!%20I%20saw%20your%20update%20page." target="_blank" rel="noopener">
+          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.4-4.6A8.5 8.5 0 1 1 8.7 18.6z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.5-2-1-.8.7c-1-.4-1.9-1.300-2.300-2.300l.7-.8-1-2z"/></svg></span>
+          <span class="tx"><small>WhatsApp</small><b>+91 79006 90012</b></span></a>
+        <a class="row rv" style="--d:.16s" href="https://www.instagram.com/cravdo/" target="_blank" rel="noopener">
+          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.200" cy="6.800" r=".6" fill="currentColor"/></svg></span>
+          <span class="tx"><small>Instagram</small><b>@cravdo</b></span></a>
+        <div class="row rv" style="--d:.22s">
+          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg></span>
+          <span class="tx"><small>Contact us</small><b><a href="mailto:hi.cravdo@gmail.com" id="mail">hi.cravdo@gmail.com</a></b></span>
+          <button class="copy" type="button" data-copy="hi.cravdo@gmail.com">Copy</button></div>
+      </div>
+    </div>
+    <div class="qr rv" style="--d:.12s">
+      <h3>Share this page</h3>
+      <div class="qr-box" id="qrBox" aria-label="QR code that opens this page"><span>Add your website link below to make the QR.</span></div>
+      <p>Scan to open the latest Cravdo update.</p>
+      <label for="qrLink">Link inside the QR</label>
+      <input id="qrLink" type="url" inputmode="url" placeholder="https://your-website.com" autocomplete="off">
+      <p>If the page moves to your own domain, paste the new address and the QR updates.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <a class="brand" href="#top" data-go="top"><img src="img/logo.jpg" alt=""><span>Cravdo</span></a>
+    <small>Healthy desserts · Bite Me, I’m Cravdo · © 2026 Cravdo</small>
+  </div>
+</footer>
+<div class="modal" id="modal" hidden>
+  <div class="scrim" data-close></div>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="mTitle" tabindex="-1">
+    <header class="m-head">
+      <button class="icon-btn" id="mBack" type="button" aria-label="Back" hidden><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 3L5 9l6 6"/></svg></button>
+      <div class="m-titles"><p class="eyebrow" id="mEyebrow"></p><h2 id="mTitle"></h2></div>
+      <button class="icon-btn" type="button" data-close aria-label="Close"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l10 10M14 4L4 14"/></svg></button>
+    </header>
+    <div class="m-body" id="mBody"></div>
+    <footer class="m-foot" id="mFoot" hidden></footer>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function(){
+  var root=document.documentElement;
+  var $=function(s){return document.querySelector(s)};
+  var clamp=function(v,a,b){a=a==null?0:a;b=b==null?1:b;return Math.min(b,Math.max(a,v))};
+  var lerp=function(a,b,t){return a+(b-a)*t};
+  var ease=function(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2};
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var hero=$('.hero'), stage=$('.hero-stage'), arch=$('.hero-arch'), archImg=arch.querySelector('img');
+  var copy=$('.hero-copy'), cap=$('.hero-cap'), cue=$('.cue');
+  var hs=$('#menu'), hsStage=$('.hs-stage'), track=$('#track'), hbar=$('#hbar');
+  var tl=$('#tl'), frame=$('#spaceFrame');
+  var pars=[].slice.call(document.querySelectorAll('[data-par]'));
+  var dist=0, ticking=false;
+
+  function measure(){
+    if(reduce){hs.classList.add('flat');return;}
+    dist=Math.max(0,track.offsetWidth-hsStage.clientWidth+24);
+    hs.style.height=(hsStage.clientHeight+dist)+'px';
+  }
+
+  function update(){
+    ticking=false;
+    var vh=window.innerHeight, vw=root.clientWidth, y=window.scrollY;
+    var max=root.scrollHeight-vh;
+    root.style.setProperty('--sp',max>0?clamp(y/max):0);
+
+    if(!reduce){
+      var sh=stage.clientHeight||vh;
+      var r=hero.getBoundingClientRect();
+      var p=clamp(-r.top/(r.height-sh)), e=ease(p);
+      var w0=Math.min(vw*.62,420), h0=sh*.58;
+      var w=lerp(w0,vw,e), h=lerp(h0,sh,e), rad=(w/2)*(1-e);
+      arch.style.width=w+'px'; arch.style.height=h+'px';
+      arch.style.borderRadius=rad+'px '+rad+'px 0 0';
+      archImg.style.transform='scale('+lerp(1.1,1,e)+')';
+      arch.style.setProperty('--shade',lerp(.25,1,clamp(p*1.4)));
+      copy.style.opacity=1-clamp(p*2.4);
+      copy.style.transform='translateY('+(-p*90)+'px)';
+      var c=clamp((p-.62)*3.2);
+      cap.style.opacity=c; cap.style.transform='translateY('+((1-c)*24)+'px)';
+      cue.style.opacity=1-clamp(p*6);
+
+      var hr=hs.getBoundingClientRect();
+      var hp=clamp(-hr.top/Math.max(1,hr.height-hsStage.clientHeight));
+      track.style.transform='translate3d('+(-hp*dist)+'px,0,0)';
+      hs.style.setProperty('--hp',Math.max(.04,hp));
+      hbar.style.setProperty('--hp',Math.max(.04,hp));
+
+      var fr=frame.getBoundingClientRect();
+      var t=ease(clamp((vh-fr.top)/(vh*.85)));
+      frame.style.setProperty('--cy',lerp(10,0,t)+'%');
+      frame.style.setProperty('--cx',lerp(7,0,t)+'%');
+      frame.style.setProperty('--cr',lerp(44,0,t)+'px');
+
+      pars.forEach(function(img){
+        var pr=img.parentElement.getBoundingClientRect();
+        var off=((pr.top+pr.height/2)-vh/2)/vh;
+        var amt=parseFloat(img.getAttribute('data-par'))||30;
+        img.style.transform='translate3d(0,'+(off*-amt)+'px,0)';
+      });
+    }
+
+    var tr=tl.getBoundingClientRect();
+    tl.style.setProperty('--tl',clamp((vh*.62-tr.top)/tr.height));
+    [].forEach.call(tl.children,function(li){
+      li.classList.toggle('on',li.getBoundingClientRect().top<vh*.62);
+    });
+  }
+  function req(){if(!ticking){ticking=true;requestAnimationFrame(update)}}
+  window.addEventListener('scroll',req,{passive:true});
+  window.addEventListener('resize',function(){measure();req()});
+  window.addEventListener('load',function(){measure();req()});
+  measure(); update();
+
+  /* reveal on scroll */
+  var rvs=[].slice.call(document.querySelectorAll('.rv'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    rvs.forEach(function(el){io.observe(el)});
+  } else { rvs.forEach(function(el){el.classList.add('in')}); }
+
+  /* nav jumps */
+  [].forEach.call(document.querySelectorAll('[data-go]'),function(a){
+    a.addEventListener('click',function(ev){
+      ev.preventDefault();
+      var id=a.getAttribute('data-go'), el=id==='top'?document.body:document.getElementById(id);
+      if(id==='top'){window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});return;}
+      var top=el.getBoundingClientRect().top+window.scrollY-(id==='menu'?0:20);
+      window.scrollTo({top:top,behavior:reduce?'auto':'smooth'});
+    });
+  });
+
+  /* founder bio expand */
+  var bioBtn=$('#bioBtn'), bioMore=$('#bioMore');
+  bioBtn.addEventListener('click',function(){
+    var open=!bioMore.classList.contains('open');
+    bioMore.classList.toggle('open',open);
+    bioBtn.setAttribute('aria-expanded',open?'true':'false');
+    bioBtn.querySelector('span').textContent=open?'Show less':'Show more';
+    req();
+  });
+
+  /* toast + copy */
+  var toast=$('#toast'), tt;
+  function say(m){toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('show')},1800)}
+  [].forEach.call(document.querySelectorAll('[data-copy]'),function(b){
+    b.addEventListener('click',function(){
+      var txt=b.getAttribute('data-copy');
+      var done=function(){say('Copied '+txt)};
+      var fallback=function(){
+        var r=document.createRange(); r.selectNodeContents($('#mail'));
+        var s=window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        say('Email selected, press copy');
+      };
+      try{ navigator.clipboard.writeText(txt).then(done,fallback); }catch(e){fallback()}
+    });
+  });
+
+  /* ===== ordering + cart demo ===== */
+  /* Edit MENU below when the real menu is ready. Prices are samples. */
+  var MENU=[
+    {id:'donut',name:'Baked donut',desc:'Soft, baked, with toppings',price:89},
+    {id:'brownie',name:'Fudgy brownie',desc:'Rich and made the healthier way',price:99},
+    {id:'bento',name:'Bento cake',desc:'Small boxed cake',price:249},
+    {id:'popsicle',name:'Popsicle cake',desc:'Cake on a stick',price:129},
+    {id:'pops',name:'Pop cakes (4)',desc:'Bite-sized cake pops',price:149},
+    {id:'jar',name:'Cheesecake jar',desc:'Creamy and wholesome',price:149},
+    {id:'bread',name:'Wholesome bread loaf',desc:'Freshly baked',price:129},
+    {id:'cookie',name:'Cookie',desc:'Freshly baked goodness',price:59}
+  ];
+  var CITIES=['Delhi','Noida','Greater Noida','Gurugram','Ghaziabad','Faridabad'];
+  var WA='917900690012';
+  var CARTS=[
+    {name:'Park Gate Cart',short:'Park Gate',x:95,y:80,wait:'6 min'},
+    {name:'Metro Exit Cart',short:'Metro Exit',x:268,y:128,wait:'4 min'},
+    {name:'Market Lane Cart',short:'Market Lane',x:300,y:235,wait:'8 min'},
+    {name:'College Gate Cart',short:'College Gate',x:140,y:262,wait:'5 min'}
+  ];
+  var USER={x:200,y:165}, M_PER_PX=4;
+  var ST={mode:'',step:'',cart:null,qty:{},pay:'upi',orderId:'',err:'',located:false,locMsg:'',
+    base:{lat:28.6315,lng:77.2167},info:{name:'',phone:'',city:'Delhi',pin:'',addr:'',note:''}};
+
+  var modal=$('#modal'), panel=modal.querySelector('.panel'), mBody=$('#mBody'), mFoot=$('#mFoot');
+  var mTitle=$('#mTitle'), mEyebrow=$('#mEyebrow'), mBack=$('#mBack'), lastFocus=null;
+
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function rs(n){return '₹'+n.toLocaleString('en-IN')}
+  function chosen(){return MENU.filter(function(m){return ST.qty[m.id]>0})}
+  function subtotal(){return MENU.reduce(function(t,m){return t+m.price*(ST.qty[m.id]||0)},0)}
+  function count(){return MENU.reduce(function(t,m){return t+(ST.qty[m.id]||0)},0)}
+  function cartDist(c){return Math.round(Math.hypot(c.x-USER.x,c.y-USER.y)*M_PER_PX)}
+  function fmtDist(m){return m>=1000?(m/1000).toFixed(1)+' km':m+' m'}
+  function sortedCarts(){return CARTS.map(function(c,i){return {c:c,i:i,d:cartDist(c)}}).sort(function(a,b){return a.d-b.d})}
+  function coords(c){
+    var lat=ST.base.lat-(c.y-USER.y)*M_PER_PX/111000;
+    var lng=ST.base.lng+(c.x-USER.x)*M_PER_PX/(111000*Math.cos(ST.base.lat*Math.PI/180));
+    return lat.toFixed(5)+','+lng.toFixed(5);
+  }
+  function gmaps(c){return 'https://www.google.com/maps/dir/?api=1&destination='+coords(c)+'&travelmode=walking'}
+  function newId(){var s='';var a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';for(var i=0;i<6;i++)s+=a[Math.floor(Math.random()*a.length)];return 'CRV-'+s}
+  function waLink(text){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(text)}
+
+  function mapSVG(live){
+    var roads=['M-10 120H410','M-10 215H410','M80 -10V330','M250 -10V330','M-10 305L410 45'];
+    var minor=['M165 -10V330','M-10 62H410'];
+    var h='<svg class="map" viewBox="0 0 400 320" role="img" aria-label="Map of Cravdo carts near you"><rect class="land" width="400" height="320"/>';
+    h+='<path class="water" d="M-10 30C120 10 220 64 410 22L410-10L-10-10Z"/><ellipse class="park" cx="60" cy="205" rx="52" ry="40"/>';
+    minor.forEach(function(d){h+='<path class="road-o" style="stroke-width:11" d="'+d+'"/>'});
+    roads.forEach(function(d){h+='<path class="road-o" d="'+d+'"/>'});
+    minor.forEach(function(d){h+='<path class="road" style="stroke-width:7" d="'+d+'"/>'});
+    roads.forEach(function(d){h+='<path class="road" d="'+d+'"/>'});
+    h+='<circle class="ring" cx="'+USER.x+'" cy="'+USER.y+'" r="75"/><text class="ring-t" x="'+(USER.x+4)+'" y="'+(USER.y-79)+'">300 m</text>';
+    h+='<g transform="translate('+USER.x+','+USER.y+')"><circle class="pulse" r="10"/><circle class="udot" r="7"/></g>';
+    h+='<text class="you" x="'+USER.x+'" y="'+(USER.y+24)+'">You</text>';
+    var near=sortedCarts()[0].i;
+    CARTS.forEach(function(c,i){
+      var isNear=i===near;
+      h+='<g class="pin'+(isNear?' near':'')+'" transform="translate('+c.x+','+c.y+')"'+(live?' data-pin="'+i+'" tabindex="0" role="button" aria-label="'+esc(c.name)+', '+fmtDist(cartDist(c))+' away"':'')+'>';
+      if(isNear)h+='<circle class="halo" r="15"/>';
+      h+='<circle class="pin-bg" r="15"/><text class="pin-t" dy=".35em">C</text><text class="pin-l" y="31">'+esc(c.short)+'</text></g>';
+    });
+    return h+'</svg>';
+  }
+
+  function head(eyebrow,title,back){mEyebrow.textContent=eyebrow;mTitle.textContent=title;mBack.hidden=!back}
+  function foot(html){mFoot.innerHTML=html;mFoot.hidden=!html}
+
+  function viewMap(){
+    head('Demo · coming soon','Cravdo carts near you',false);
+    var list=sortedCarts().map(function(o,k){
+      return '<li><button type="button" class="crow" data-act="pick" data-i="'+o.i+'"><span class="cl"><b>'+esc(o.c.name)+'</b><small>'+fmtDist(o.d)+' away · ready in about '+o.c.wait+'</small></span>'+(k===0?'<span class="badge">Nearest</span>':'')+'</button></li>';
+    }).join('');
+    mBody.innerHTML='<p class="m-note"><b>This is a demo.</b> Cravdo carts are coming soon. The carts below are examples placed around '+(ST.located?'your location':'a sample spot in Delhi')+'.</p>'
+      +mapSVG(true)
+      +'<div class="maprow"><button type="button" class="btn sm ghost" data-act="locate">Use my location</button><span class="m-small" id="locMsg">'+esc(ST.locMsg||'Tap a cart on the map to see its menu.')+'</span></div>'
+      +'<ul class="clist">'+list+'</ul>';
+    foot('');
+  }
+
+  function viewMenu(){
+    var cartMode=ST.mode==='cart';
+    head(cartMode?ST.cart.name:'Delivery · Delhi NCR','Choose your treats',cartMode);
+    var li=MENU.map(function(m){
+      return '<li class="mi"><span class="mt"><b>'+esc(m.name)+'</b><small>'+esc(m.desc)+'</small></span><span class="pr">'+rs(m.price)+'</span>'
+        +'<span class="stepper"><button type="button" data-act="dec" data-id="'+m.id+'" aria-label="Remove one '+esc(m.name)+'">−</button><output id="q-'+m.id+'">'+(ST.qty[m.id]||0)+'</output><button type="button" data-act="inc" data-id="'+m.id+'" aria-label="Add one '+esc(m.name)+'">+</button></span></li>';
+    }).join('');
+    mBody.innerHTML='<p class="m-note"><b>Sample menu and prices.</b> The real Cravdo menu is coming soon.</p>'
+      +(cartMode?'<p class="m-small">Pickup from '+esc(ST.cart.name)+', about '+fmtDist(cartDist(ST.cart))+' from you.</p>':'<p class="m-small">Delivery within Delhi NCR. Delivery is charged extra, based on your location.</p>')
+      +'<ul class="mlist">'+li+'</ul>';
+    menuFoot();
+  }
+  function menuFoot(){
+    var n=count();
+    foot('<div class="tot"><small>'+n+(n===1?' item':' items')+'</small><b>'+rs(subtotal())+'</b></div><div class="acts"><button type="button" class="btn" data-act="next"'+(n?'':' disabled')+'>'+(ST.mode==='cart'?'Continue to payment':'Continue')+'</button></div>');
+  }
+
+  function viewDetails(){
+    head('Delivery · Delhi NCR','Where should we deliver?',true);
+    var i=ST.info;
+    var opts=CITIES.map(function(c){return '<option'+(i.city===c?' selected':'')+'>'+c+'</option>'}).join('');
+    mBody.innerHTML='<form class="form" id="dForm" novalidate>'
+      +'<div class="two"><label>Name<input data-k="name" autocomplete="name" value="'+esc(i.name)+'"></label><label>Phone<input data-k="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="10-digit mobile" value="'+esc(i.phone)+'"></label></div>'
+      +'<div class="two"><label>City<select data-k="city">'+opts+'</select></label><label>Pincode<input data-k="pin" inputmode="numeric" maxlength="6" autocomplete="postal-code" value="'+esc(i.pin)+'"></label></div>'
+      +'<label>Delivery address<textarea data-k="addr" autocomplete="street-address" placeholder="House or flat, street, area">'+esc(i.addr)+'</textarea></label>'
+      +'<label>Note for the kitchen (optional)<input data-k="note" value="'+esc(i.note)+'"></label>'
+      +'<p class="m-small">We deliver only within Delhi NCR. The delivery charge depends on your location and is confirmed before you pay.</p>'
+      +'<p class="err" id="formErr" role="alert">'+esc(ST.err)+'</p></form>';
+    foot('<div class="tot"><small>Items</small><b>'+rs(subtotal())+'</b></div><div class="acts"><button type="button" class="btn" data-act="next">Continue to payment</button></div>');
+  }
+
+  function orderText(){
+    var i=ST.info, lines=chosen().map(function(m){return '- '+ST.qty[m.id]+' x '+m.name+' ('+rs(m.price*ST.qty[m.id])+')'});
+    var t='Hi Cravdo! I would like to order for delivery in Delhi NCR:\n'+lines.join('\n')+'\nItems total: '+rs(subtotal())+' (delivery extra)\n\nName: '+i.name+'\nPhone: '+i.phone+'\nCity: '+i.city+(i.pin?' '+i.pin:'')+'\nAddress: '+i.addr+(i.note?'\nNote: '+i.note:'');
+    if(ST.orderId)t+='\nDemo order ID: '+ST.orderId;
+    return t;
+  }
+
+  function viewPay(){
+    var cartMode=ST.mode==='cart';
+    head(cartMode?ST.cart.name:'Delivery · Delhi NCR','Review and pay',true);
+    var rows=chosen().map(function(m){return '<div><span>'+ST.qty[m.id]+' × '+esc(m.name)+'</span><span>'+rs(m.price*ST.qty[m.id])+'</span></div>'}).join('');
+    var extra=cartMode?'<div><span>Pickup at '+esc(ST.cart.name)+'</span><span>Free</span></div>':'<div><span>Delivery to '+esc(ST.info.city)+'</span><span>Extra, confirmed on WhatsApp</span></div>';
+    var methods=[['upi','UPI'],['card','Card'],['net','Net banking']].map(function(p){return '<label><input type="radio" name="pm" value="'+p[0]+'"'+(ST.pay===p[0]?' checked':'')+'>'+p[1]+'</label>'}).join('');
+    mBody.innerHTML='<div class="sum">'+rows+extra+'<div class="t"><span>'+(cartMode?'Total':'Items total')+'</span><span>'+rs(subtotal())+'</span></div></div>'
+      +'<div class="pays" role="radiogroup" aria-label="Payment method">'+methods+'</div>'
+      +'<p class="m-note"><b>Demo payment.</b> Online payments switch on when Cravdo goes live, so no money is charged and no real order is placed.'+(cartMode?'':' To order for real today, send it to us on WhatsApp.')+'</p>';
+    foot('<div class="tot"><small>'+(cartMode?'Total':'Items total')+'</small><b>'+rs(subtotal())+'</b></div><div class="acts">'
+      +(cartMode?'':'<a class="btn ghost" target="_blank" rel="noopener" href="'+waLink(orderText())+'">Send order on WhatsApp</a>')
+      +'<button type="button" class="btn" data-act="pay">Pay '+rs(subtotal())+' (demo)</button></div>');
+  }
+
+  function viewDone(){
+    var cartMode=ST.mode==='cart';
+    head('Demo','Order confirmed',false);
+    mBody.innerHTML='<div class="done"><div class="check"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M8 19l7 7 13-14"/></svg></div>'
+      +'<h3>'+(cartMode?'Head to the cart':'Order received')+'</h3>'
+      +'<div class="oid"><b id="oidTxt">'+ST.orderId+'</b><button type="button" class="copy" data-act="copyid" style="color:inherit">Copy</button></div>'
+      +(cartMode
+        ?'<p>Go to <b>'+esc(ST.cart.name)+'</b> and show this order ID to collect your order. It is about '+fmtDist(cartDist(ST.cart))+' away.</p><div class="acts"><a class="btn" target="_blank" rel="noopener" href="'+gmaps(ST.cart)+'">Open in Google Maps</a><button type="button" class="btn ghost" data-close>Done</button></div><p class="m-small">This was a demo. Real Cravdo carts and payments are coming soon.</p>'
+        :'<p>This was a demo, so nothing has been placed yet. To order for real, send your order to us on WhatsApp and we will confirm the delivery charge.</p><div class="acts"><a class="btn" target="_blank" rel="noopener" href="'+waLink(orderText())+'">Send order on WhatsApp</a><button type="button" class="btn ghost" data-close>Done</button></div>')
+      +'</div>';
+    foot('');
+  }
+
+  function render(){
+    ({map:viewMap,menu:viewMenu,details:viewDetails,pay:viewPay,done:viewDone})[ST.step]();
+    mBody.scrollTop=0;
+  }
+  function go(step){ST.step=step;ST.err='';render()}
+  function back(){
+    var s=ST.step;
+    if(s==='menu')go('map'); else if(s==='details')go('menu');
+    else if(s==='pay')go(ST.mode==='cart'?'menu':'details');
+  }
+  function openModal(mode){
+    ST.mode=mode;ST.qty={};ST.cart=null;ST.orderId='';ST.err='';
+    lastFocus=document.activeElement;
+    modal.hidden=false;document.body.style.overflow='hidden';
+    ST.step=mode==='cart'?'map':'menu';render();panel.focus();
+  }
+  function closeModal(){
+    modal.hidden=true;document.body.style.overflow='';
+    if(lastFocus&&lastFocus.focus)lastFocus.focus();
+  }
+  function pick(i){ST.cart=CARTS[i];go('menu')}
+  function validate(){
+    var i=ST.info, ph=i.phone.replace(/[\s-]/g,'').replace(/^(\+91|91|0)(?=\d{10}$)/,'');
+    if(!i.name.trim())return 'Please enter your name.';
+    if(!/^[6-9]\d{9}$/.test(ph))return 'Please enter a valid 10-digit mobile number.';
+    if(i.pin&&!/^\d{6}$/.test(i.pin))return 'Pincode should be 6 digits.';
+    if(i.addr.trim().length<8)return 'Please add your full delivery address.';
+    i.phone=ph;return '';
+  }
+  function bumpQty(id,d){
+    ST.qty[id]=Math.max(0,Math.min(20,(ST.qty[id]||0)+d));
+    var o=$('#q-'+id);if(o)o.textContent=ST.qty[id];
+    menuFoot();
+  }
+  function locate(){
+    var msg=$('#locMsg');
+    var fail=function(){ST.locMsg='Location is not available here, so the map shows a sample spot in Delhi.';if(msg)msg.textContent=ST.locMsg};
+    if(!navigator.geolocation){fail();return}
+    if(msg)msg.textContent='Finding you…';
+    try{
+      navigator.geolocation.getCurrentPosition(function(p){
+        ST.base={lat:p.coords.latitude,lng:p.coords.longitude};ST.located=true;
+        ST.locMsg='Using your current location. Carts shown are demo examples.';
+        if(ST.step==='map')viewMap();
+      },fail,{timeout:6000,maximumAge:60000});
+    }catch(e){fail()}
+  }
+
+  document.addEventListener('click',function(ev){
+    var o=ev.target.closest('[data-open]');
+    if(o){ev.preventDefault();openModal(o.getAttribute('data-open'));return}
+  });
+  modal.addEventListener('click',function(ev){
+    var t=ev.target;
+    if(t.closest('[data-close]')){closeModal();return}
+    if(t.closest('#mBack')){back();return}
+    var pin=t.closest('[data-pin]');if(pin){pick(+pin.getAttribute('data-pin'));return}
+    var b=t.closest('[data-act]');if(!b)return;
+    var a=b.getAttribute('data-act');
+    if(a==='pick')pick(+b.getAttribute('data-i'));
+    else if(a==='inc')bumpQty(b.getAttribute('data-id'),1);
+    else if(a==='dec')bumpQty(b.getAttribute('data-id'),-1);
+    else if(a==='locate')locate();
+    else if(a==='next'){
+      if(!count())return;
+      if(ST.mode==='cart')go('pay');
+      else if(ST.step==='menu')go('details');
+      else{var e=validate();if(e){ST.err=e;$('#formErr').textContent=e;return}go('pay')}
+    }
+    else if(a==='pay'){ST.orderId=newId();go('done')}
+    else if(a==='copyid'){
+      var id=ST.orderId, ok=function(){say('Copied '+id)}, bad=function(){var r=document.createRange();r.selectNodeContents($('#oidTxt'));var s=window.getSelection();s.removeAllRanges();s.addRange(r);say('Order ID selected')};
+      try{navigator.clipboard.writeText(id).then(ok,bad)}catch(e2){bad()}
+    }
+  });
+  modal.addEventListener('input',function(ev){
+    var k=ev.target.getAttribute&&ev.target.getAttribute('data-k');
+    if(k)ST.info[k]=ev.target.value;
+    if(ev.target.name==='pm')ST.pay=ev.target.value;
+  });
+  modal.addEventListener('change',function(ev){
+    var k=ev.target.getAttribute&&ev.target.getAttribute('data-k');
+    if(k)ST.info[k]=ev.target.value;
+    if(ev.target.name==='pm')ST.pay=ev.target.value;
+  });
+  modal.addEventListener('keydown',function(ev){
+    var pin=ev.target.closest&&ev.target.closest('[data-pin]');
+    if(pin&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();pick(+pin.getAttribute('data-pin'))}
+  });
+  document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&!modal.hidden)closeModal()});
+  var mini=$('#miniMap'); if(mini)mini.innerHTML=mapSVG(false);
+
+  /* QR */
+  var box=$('#qrBox'), input=$('#qrLink');
+  function drawQR(text){
+    box.innerHTML='';
+    if(!text || typeof QRCode==='undefined'){
+      var s=document.createElement('span'); s.textContent=text?'QR could not load.':'Add your website link below to make the QR.'; box.appendChild(s); return;
+    }
+    try{
+      new QRCode(box,{text:text,width:208,height:208,colorDark:'#23375A',colorLight:'#FFFFFF',correctLevel:QRCode.CorrectLevel.M});
+    }catch(e){var s2=document.createElement('span'); s2.textContent='That link is too long for a QR code.'; box.appendChild(s2)}
+  }
+  var here=''; try{here=String(window.location.href).split('#')[0]}catch(e){}
+  if(/^https?:\/\//i.test(here)) input.value=here;
+  drawQR(input.value.trim());
+  var qt;
+  input.addEventListener('input',function(){clearTimeout(qt);qt=setTimeout(function(){drawQR(input.value.trim())},250)});
+})();
+</script>
+
+</body></html>
