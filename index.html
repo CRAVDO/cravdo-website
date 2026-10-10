@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Cravdo</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;500;600&family=Caveat:wght@500;600&display=swap">
 <style>
@@ -10,7 +10,7 @@
   --hero-bg:#F8E7A4; --wm:#3F6199; --sky-bg:#C9DBF2;
   --card-a:#F6DF8E; --on-a:#23375A; --card-b:#4A6C9D; --on-b:#FFF6D0;
   --deep:#2B4673; --on-deep:#FBEFB8;
-  --btn-bg:#23375A; --btn-fg:#FFF6D0;
+  --btn-bg:#23375A; --btn-fg:#FFF6D0; --wash:rgba(251,243,211,.72);
   --qr-bg:#FFF6D0; --qr-fg:#23375A; --on-photo:#FFF6D0;
   --f-display:'Fredoka','Trebuchet MS',system-ui,sans-serif;
   --f-body:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -22,7 +22,7 @@
     --hero-bg:#1A2A48; --wm:#F2D878; --sky-bg:#223760;
     --card-a:#F2D878; --on-a:#1F3253; --card-b:#4A6C9D; --on-b:#FFF6D0;
     --deep:#0E1830; --on-deep:#F8EBB5;
-    --btn-bg:#F2D878; --btn-fg:#1F3253; color-scheme:dark;
+    --btn-bg:#F2D878; --btn-fg:#1F3253; --wash:rgba(20,32,58,.86); color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
@@ -30,7 +30,7 @@
   --hero-bg:#1A2A48; --wm:#F2D878; --sky-bg:#223760;
   --card-a:#F2D878; --on-a:#1F3253; --card-b:#4A6C9D; --on-b:#FFF6D0;
   --deep:#0E1830; --on-deep:#F8EBB5;
-  --btn-bg:#F2D878; --btn-fg:#1F3253; color-scheme:dark;
+  --btn-bg:#F2D878; --btn-fg:#1F3253; --wash:rgba(20,32,58,.86); color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -47,13 +47,13 @@ h1,h2,h3,p{margin:0}
 
 /* progress + nav */
 .progress{position:fixed;top:0;left:0;height:3px;width:calc(var(--sp,0)*100%);background:var(--accent);z-index:70}
-.nav{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);left:50%;transform:translateX(-50%);z-index:60;width:min(940px,calc(100% - 32px));
+.nav{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);left:50%;transform:translateX(-50%);z-index:60;width:min(1160px,calc(100% - 32px));
   display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 8px 10px;border-radius:999px;
   background:color-mix(in srgb,var(--surface) 80%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-display);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:1.02rem}
 .brand img{width:36px;height:36px;border-radius:10px}
 .links{display:flex;gap:4px}
-.links a{text-decoration:none;font-weight:500;font-size:.94rem;padding:8px 14px;border-radius:999px;color:var(--muted)}
+.links a{text-decoration:none;font-weight:500;font-size:.9rem;padding:8px 9px;border-radius:999px;color:var(--muted)}
 .links a:hover{background:var(--line);color:var(--fg)}
 .btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:.98rem;text-decoration:none;
   background:var(--btn-bg);color:var(--btn-fg);border:0;cursor:pointer;font-family:inherit;transition:transform .25s ease,box-shadow .25s ease}
@@ -75,7 +75,7 @@ h1,h2,h3,p{margin:0}
 .hero-arch::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,32,58,0) 45%,rgba(20,32,58,.7));opacity:var(--shade,.25);pointer-events:none}
 .hero-cap{position:absolute;left:0;right:0;bottom:12svh;text-align:center;color:var(--on-photo);padding-inline:16px;opacity:0;z-index:2}
 .hero-cap .script{font-size:clamp(2.4rem,7vw,5rem)}
-.hero-cap p:last-child{margin-top:8px;font-size:1rem;opacity:.9}
+.hero-cap p:last-child{margin:8px auto 0;max-width:58ch;font-size:1.02rem;line-height:1.5;opacity:.95}
 .cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--on-photo);font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
 .cue i{display:block;width:2px;height:34px;background:currentColor;opacity:.7;transform-origin:top;animation:drip 1.8s ease-in-out infinite}
 @keyframes drip{0%{transform:scaleY(0)}60%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
@@ -206,6 +206,7 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
 .svc-card .note{font-size:.84rem}
 .svc-card .btn{margin-top:auto}
 .tag{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:999px;border:1.5px solid currentColor;color:var(--accent)}
+.tag.soon{background:var(--accent);color:var(--bg);border-color:var(--accent)}
 .tag.soon{color:inherit}
 .ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 .ticks li{position:relative;padding-left:26px;color:var(--fg);font-size:.97rem}
@@ -310,18 +311,199 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
 }
 @media (prefers-reduced-motion:reduce){.map .pulse,.map .halo,.panel,.scrim{animation:none}}
 
+/* plaid backdrop */
+body,.sheet:not(.connect),.svc,.space,.founder{background-color:var(--bg);background-image:linear-gradient(var(--wash),var(--wash)),url(img/plaid-tile.jpg);background-size:auto,360px auto}
+
+/* gallery */
+.journey{padding-block:clamp(64px,9vw,110px) clamp(40px,6vw,72px)}
+.jhead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:clamp(24px,4vw,40px)}
+.jbtns{display:flex;gap:10px}
+.gallery{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;padding:6px max(16px,calc((100vw - 1200px)/2 + 4vw)) 28px;cursor:grab;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.gallery::-webkit-scrollbar{display:none}
+.shot{flex:0 0 auto;width:clamp(240px,62vw,380px);margin:0;display:grid;gap:14px;align-content:start}
+.shot:nth-child(even){margin-top:40px}
+.shot .ph{aspect-ratio:4/5;border-radius:28px;overflow:hidden;background:var(--card-b);display:grid;place-items:center}
+.shot img{width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none;user-select:none}
+.shot figcaption{font-size:.95rem;color:var(--muted);line-height:1.5}
+.shot figcaption b{display:block;font-family:var(--f-display);font-weight:500;font-size:1.2rem;color:var(--fg);margin-bottom:2px}
+.shot.more .ph{background:var(--card-a);color:var(--on-a)}
+.shot.more .script{font-size:2.4rem;padding:20px;text-align:center}
+.svc-card.diet{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:clamp(20px,4vw,56px);align-items:center;background:var(--card-b);color:var(--on-b);border-color:transparent}
+.svc-card.diet p{color:inherit;opacity:.9}
+.svc-card.diet .tag{color:inherit}
+.svc-card.diet .ticks li{color:inherit}
+.svc-card.diet .ticks li::before{border-color:var(--card-a)}
+.svc-card.diet .btn{background:var(--card-a);color:var(--on-a)}
+.dtxt{display:grid;gap:16px;justify-items:start;min-width:0}
+/* diet form */
+.intro{display:grid;gap:8px;padding:16px 18px;border-radius:20px;background:var(--card-a);color:var(--on-a)}
+.intro p:first-child{font-family:var(--f-display);font-weight:500;font-size:1.15rem;line-height:1.3}
+.intro p:last-child{font-size:.95rem;opacity:.9}
+.fs{border:0;margin:0;padding:0;display:grid;gap:12px;min-width:0}
+.fs legend{padding:0;margin-bottom:2px;font-family:var(--f-display);font-weight:600;font-size:1.15rem;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.fs legend span{font-family:var(--f-body);font-weight:500;font-size:.82rem;color:var(--muted)}
+.ticks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.tk{display:grid;gap:8px;align-content:start;min-width:0}
+.form .tick{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);cursor:pointer;font-size:.97rem;font-weight:500;letter-spacing:0;text-transform:none;color:var(--fg);transition:border-color .2s}
+.form .tick:has(input:checked){border-color:var(--accent)}
+.form .tick:has(input:focus-visible){outline:3px solid var(--accent);outline-offset:2px}
+.form .tick input,.form .plan input{appearance:none;-webkit-appearance:none;flex:0 0 22px;width:22px;height:22px;padding:0;margin:0;border-radius:7px;border:2px solid var(--accent);background:transparent;display:grid;place-items:center;cursor:pointer}
+.form .plan input{border-radius:50%}
+.form .tick input:checked,.form .plan input:checked{background:var(--accent)}
+.form .tick input:checked::after{content:"";width:10px;height:6px;border-left:2.5px solid var(--bg);border-bottom:2.5px solid var(--bg);transform:rotate(-45deg) translate(1px,-1px)}
+.form .plan input:checked::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--bg)}
+.form .tick input:disabled{opacity:.4;cursor:not-allowed}
+.form .plan{display:flex;gap:14px;align-items:center;padding:14px 16px;border-radius:18px;border:1.5px solid var(--line);background:var(--bg);cursor:pointer;text-transform:none;letter-spacing:0;font-size:1rem;color:var(--fg)}
+.form .plan:has(input:checked){border-color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.plan .pt{flex:1;min-width:0;display:grid;gap:2px}
+.plan .pt b{font-family:var(--f-display);font-weight:500;font-size:1.1rem}
+.plan .pt small{color:var(--muted);font-size:.86rem;font-weight:400}
+.plan .pp{font-weight:700;font-variant-numeric:tabular-nums}
+.terms{max-height:190px;overflow:auto;padding:14px 16px;border-radius:16px;border:1.5px solid var(--line);background:var(--bg);font-size:.88rem;line-height:1.55;color:var(--fg)}
+.terms h4{margin:0 0 8px;font-family:var(--f-display);font-weight:600;font-size:1.05rem}
+.terms ol{margin:0;padding-left:20px;display:grid;gap:8px}
+.hcm[hidden],.hft[hidden]{display:none}
+@media (max-width:860px){.svc-card.diet{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.ticks-grid{grid-template-columns:1fr}}
+
+/* founder, care, bulk */
+.svc-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.svc-head>div{display:grid;gap:14px}
+.btn.special{position:relative;overflow:hidden;background:var(--card-a);color:var(--on-a);border:2px solid var(--fg)}
+.btn.special svg{width:18px;height:18px;fill:currentColor}
+.btn.special svg.stk{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn.special::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-120%);animation:shine 3.6s ease-in-out infinite}
+@keyframes shine{to{transform:translateX(120%)}}
+.svc-card.bulk{grid-column:1/-1;display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.svc-card.bulk .btn{margin-top:0}
+.plans-show{display:grid;gap:12px}
+.pl-h{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:600;font-size:1.1rem;letter-spacing:.04em;text-transform:uppercase}
+.pl-h svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.plr{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 16px;align-items:center;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.1)}
+.plr .pr{font-family:var(--f-display);font-weight:700;font-size:1.6rem;font-variant-numeric:tabular-nums}
+.plr .pn{display:grid;gap:2px}
+.plr .pn b{font-family:var(--f-display);font-weight:500;font-size:1.05rem}
+.plr .pn small{font-size:.84rem;opacity:.88;line-height:1.4}
+.sn{font-family:var(--f-body);font-weight:700;font-size:.74rem;letter-spacing:.08em;opacity:.7;margin-right:8px}
+.plr .pr s{display:block;font-family:var(--f-body);font-size:.78rem;font-weight:500;opacity:.65}
+.pl-note{font-size:.84rem;opacity:.85;margin:0}
+.more-plans{display:grid;gap:12px}
+.plans-more{box-sizing:border-box;width:100%;max-width:100%;justify-content:center;padding:18px 24px;font-size:1.05rem}
+.plr.hot{background:var(--card-a);color:var(--on-a);box-shadow:0 14px 30px -14px rgba(0,0,0,.5);transform:scale(1.03)}
+.badge{position:absolute;top:-11px;right:14px;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--fg);color:var(--bg)}
+.popb{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--card-a);color:var(--on-a);margin-left:8px;vertical-align:middle}
+.azym{background-image:none!important;background-color:var(--sky-bg)!important;padding-block:clamp(72px,10vw,130px)}
+.azym-grid,.care-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6vw,90px);align-items:start}
+.a-left,.c-left{display:grid;gap:18px;justify-items:start;min-width:0}
+.handle{font-family:var(--f-display);font-weight:700;font-size:clamp(1.8rem,4.4vw,3rem);color:var(--accent);line-height:1}
+.socials{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;width:100%;max-width:440px}
+.soc{display:grid;justify-items:center;gap:8px;text-decoration:none;font-size:.82rem;font-weight:600;color:var(--fg)}
+.socic{width:62px;height:62px;border-radius:50%;background:var(--surface);border:1.5px solid var(--line);display:grid;place-items:center;transition:transform .25s,background .25s,color .25s}
+.socic svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.soc:hover .socic{transform:translateY(-4px) rotate(-6deg);background:var(--card-a);color:var(--on-a)}
+.fcard{padding:clamp(22px,3.4vw,36px);border-radius:32px;background:var(--surface);border:1px solid var(--line);display:grid;gap:18px;min-width:0}
+.fcard h3{font-family:var(--f-display);font-weight:600;font-size:1.7rem;line-height:1.1}
+.fcard .btn{justify-self:start}
+.care{background-color:var(--bg);background-image:linear-gradient(var(--wash),var(--wash)),url(img/plaid-tile.jpg);background-size:auto,360px auto;padding-block:clamp(72px,10vw,130px)}
+.sendpanel{padding:4px 0}
+.linkbtn{background:none;border:0;color:var(--accent);font:600 .92rem var(--f-body);text-decoration:underline;cursor:pointer;padding:6px}
+.form .tick input[type="radio"]{border-radius:50%}
+.form .tick input[type="radio"]:checked::after{width:8px;height:8px;border:0;border-radius:50%;background:var(--bg);transform:none}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+@media (max-width:860px){.azym-grid,.care-grid{grid-template-columns:minmax(0,1fr)}.svc-card.bulk .btn{width:100%;justify-content:center}}
+@media (prefers-reduced-motion:reduce){.btn.special::after{animation:none}}
+
+/* round 4 */
+.navbtns{display:flex;align-items:center;gap:8px}
+.btn.sm.special{border-width:1.5px}
+.notices{display:grid;gap:22px;min-width:0}
+.n-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.n-title{font-family:var(--f-display);font-weight:600;font-size:1.5rem}
+.nf{display:flex;gap:8px;flex-wrap:wrap}
+.nf button{padding:8px 16px;border-radius:999px;border:1.5px solid var(--accent);background:transparent;color:var(--accent);font:600 .88rem var(--f-body);cursor:pointer;transition:background .2s,color .2s}
+.nf button.on,.nf button:hover{background:var(--accent);color:var(--bg)}
+.notices .more-btn{justify-self:start;margin-left:48px}
+.socials{grid-template-columns:repeat(2,minmax(0,1fr));max-width:240px}
+.qrlink{font-family:var(--f-display);font-weight:600;font-size:1.3rem;color:var(--qr-fg);text-decoration:underline}
+.biz{background-color:var(--bg);background-image:linear-gradient(var(--wash),var(--wash)),url(img/plaid-tile.jpg);background-size:auto,360px auto;padding-block:clamp(48px,7vw,96px) 0}
+.bizband{background:var(--deep);color:var(--on-deep);border-radius:36px;padding:clamp(28px,5vw,64px);display:grid;gap:18px;justify-items:start}
+.bizband .eyebrow{color:var(--on-deep);opacity:.8}
+.bizband .lede{color:var(--on-deep);opacity:.85}
+.bizband .m-small{color:var(--on-deep);opacity:.7}
+.bizbtns{display:flex;gap:12px;flex-wrap:wrap}
+.bizband .btn{background:var(--on-deep);color:var(--deep)}
+.bizband .btn.ghost{background:transparent;color:var(--on-deep);border-color:var(--on-deep)}
+@media (max-width:1180px){.links{display:none}}
+@media (max-width:760px){.brand span{display:none}}
+@media (max-width:420px){.photo{width:calc(100% - 18px);margin-inline:0}}
+@media (max-width:560px){.navbtns{gap:6px}.btn.sm.ord span{display:none}.btn.sm.ord{padding:10px 12px}.btn.sm.special{padding:10px 12px;font-size:.84rem}.btn.sm.carts svg{display:none}}
+
+/* baking journey */
+.bake{background-color:var(--bg);background-image:linear-gradient(var(--wash),var(--wash)),url(img/plaid-tile.jpg);background-size:auto,360px auto;padding-block:clamp(72px,10vw,130px)}
+.bake-head{display:grid;gap:14px;justify-items:start;margin-bottom:clamp(28px,5vw,52px)}
+.bk-grid{columns:3;column-gap:18px}
+.bk{position:relative;margin:0 0 18px;break-inside:avoid;border-radius:26px;overflow:hidden;background:var(--card-b)}
+.bk img{display:block;width:100%;height:auto;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.bk:hover img{transform:scale(1.04)}
+.bk figcaption{position:absolute;left:0;right:0;bottom:0;padding:48px 18px 16px;color:var(--on-photo);font-size:.88rem;line-height:1.4;background:linear-gradient(180deg,rgba(20,32,58,0),rgba(20,32,58,.78))}
+.bk figcaption b{display:block;font-family:var(--f-display);font-weight:500;font-size:1.1rem;margin-bottom:2px}
+@media (max-width:900px){.bk-grid{columns:2;column-gap:14px}.bk{margin-bottom:14px;border-radius:20px}}
+@media (max-width:560px){
+  .bk{background:none;border-radius:0;overflow:visible;margin-bottom:18px}
+  .bk img{border-radius:18px}
+  .bk figcaption{position:static;padding:8px 2px 0;color:var(--muted);background:none;font-size:.8rem}
+  .bk figcaption b{color:var(--fg);font-size:1rem}
+}
+
+/* mobile menu */
+.hamb{display:none;flex:0 0 auto;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;place-items:center;padding:0}
+.hamb:hover{background:var(--line)}
+.hamb svg{pointer-events:none}
+@media (max-width:1180px){.hamb{display:grid}}
+.menu{position:absolute;top:calc(100% + 10px);left:0;right:0;z-index:61;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:10px;border-radius:28px;background:var(--surface);color:var(--fg);border:1px solid var(--line);box-shadow:0 24px 60px -20px rgba(0,0,0,.45);max-height:calc(100svh - 110px);overflow:auto;animation:pop .3s cubic-bezier(.2,.8,.2,1)}
+.menu[hidden]{display:none}
+.menu a{display:block;padding:14px 16px;border-radius:18px;text-decoration:none;font-family:var(--f-display);font-weight:500;font-size:1.08rem;color:var(--fg)}
+.menu a:hover,.menu a:focus-visible{background:var(--line)}
+@media (max-width:560px){.hamb{width:40px;height:40px}}
+@media (max-width:400px){.navbtns{gap:4px}.btn.sm.special,.btn.sm.ord{padding:9px 10px}.btn.sm.special{font-size:.8rem}.nav{padding-inline:6px 6px;gap:6px}}
+@media (prefers-reduced-motion:reduce){.menu{animation:none}}
+
+/* noticeboard */
+.board{padding-block:clamp(64px,9vw,110px) clamp(88px,11vw,150px)}
+.board-head{display:grid;gap:14px;justify-items:start;margin-bottom:clamp(28px,5vw,48px)}
+.board-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,4vw,56px);align-items:start}
+.bcol{display:grid;gap:22px;min-width:0}
+.bh{font-family:var(--f-display);font-weight:600;font-size:1.5rem}
+.blist{list-style:none;margin:0;padding:0;display:grid;gap:22px}
+.bev{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(22px,3vw,36px)}
+@media (max-width:700px){.bev{grid-template-columns:minmax(0,1fr)}}
+.bnote{position:relative;display:grid;gap:6px;justify-items:start;padding:26px 24px 22px;border-radius:22px;background:var(--surface);border:1px solid var(--line);box-shadow:0 14px 30px -20px rgba(20,32,58,.5);min-width:0}
+.bnote:nth-child(odd){rotate:-.5deg}
+.bnote:nth-child(even){rotate:.5deg}
+.bnote.hl{background:var(--card-a);color:var(--on-a);border-color:transparent}
+.bnote .pin{position:absolute;top:-8px;left:24px;width:16px;height:16px;border-radius:50%;background:var(--accent);box-shadow:0 3px 5px rgba(0,0,0,.28),inset 0 -3px 0 rgba(0,0,0,.2)}
+.bnote.hl .pin{background:var(--card-b)}
+.bnote .when{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.bnote.hl .when{color:inherit;opacity:.8}
+.bnote h4{margin:0;font-family:var(--f-display);font-weight:500;font-size:1.3rem;line-height:1.2}
+.bnote p{margin:0;font-size:.96rem;color:var(--muted);max-width:46ch}
+.bnote.hl p{color:inherit;opacity:.9}
+.blink{margin-top:4px;padding:0;border:0;background:none;color:var(--accent);font:600 .92rem var(--f-body);text-decoration:underline;cursor:pointer}
+.bnote.hl .blink{color:inherit}
+@media (max-width:860px){.board-grid{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){.bnote{rotate:none}}
+
 /* reveal */
 .js .rv{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
 .js .rv.in{opacity:1;transform:none}
 
 @media (max-width:860px){
-  .links{display:none}
   .story-grid,.founder-grid,.connect-grid{grid-template-columns:minmax(0,1fr)}
   .story-head{position:static}
   .facts{grid-template-columns:1fr 1fr}
   .photo{max-width:340px;margin-bottom:18px}
 }
-@media (max-width:420px){ .btn.sm span{display:none} .btn.sm{padding:10px 12px} }
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .wordmark span,.cue i{animation:none}
@@ -336,39 +518,92 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
   <a class="brand" href="#top" data-go="top"><img src="img/logo.jpg" alt="Cravdo logo"><span>Cravdo</span></a>
   <div class="links">
     <a href="#order" data-go="order">Order</a>
-    <a href="#story" data-go="story">Update</a>
-    <a href="#menu" data-go="menu">Kitchen</a>
+    <a href="#diet" data-go="diet">Plans</a>
+    <a href="#board" data-go="board">Events</a>
+    <a href="#story" data-go="story">Updates</a>
     <a href="#founder" data-go="founder">Founder</a>
+    <a href="#care" data-go="care">Feedback</a>
     <a href="#connect" data-go="connect">Connect</a>
   </div>
-  <button class="btn sm" type="button" data-open="order">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11H6.200z"/><path d="M9 8V7a3 3 0 0 1 6 0v1"/></svg>
-    <span>Order now</span></button>
+  <div class="navbtns">
+    <a class="btn sm special carts" href="#carts" data-go="carts"><svg class="stk" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.500-5.600-6.500-11a6.500 6.500 0 0 1 13 0c0 5.400-6.500 11-6.500 11z"/><circle cx="12" cy="10" r="2.300"/></svg><span>Carts</span></a>
+    <button class="btn sm ord" type="button" data-open="order">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.200 11H6.200z"/><path d="M9 8V7a3 3 0 0 1 6 0v1"/></svg>
+      <span>Order now</span></button>
+    <a class="btn sm special" href="#founder" data-go="founder"><span>Azym-founder</span></a>
+    <button class="hamb" id="hamb" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+  </div>
+  <div class="menu" id="navMenu" hidden>
+    <a href="#order" data-go="order">Order</a>
+    <a href="#carts" data-go="carts">Carts</a>
+    <a href="#diet" data-go="diet">Plans</a>
+    <a href="#board" data-go="board">Events</a>
+    <a href="#story" data-go="story">Updates</a>
+    <a href="#founder" data-go="founder">Founder</a>
+    <a href="#care" data-go="care">Feedback</a>
+    <a href="#connect" data-go="connect">Connect</a>
+  </div>
 </nav>
 
 <header class="hero" id="top">
   <div class="hero-stage">
     <div class="hero-copy">
-      <p class="eyebrow">Healthy desserts · Since 2025</p>
+      <p class="eyebrow">Healthier foods · Since 2025</p>
       <h1 class="wordmark" aria-label="Cravdo"><span style="--i:0">C</span><span style="--i:1">R</span><span style="--i:2">A</span><span style="--i:3">V</span><span style="--i:4">D</span><span style="--i:5">O</span></h1>
       <p class="script">Bite Me, I’m Cravdo.</p>
     </div>
     <div class="hero-arch">
       <img src="img/interior.jpg" alt="Concept of the Cravdo café in butter yellow and pastel blue">
-      <div class="hero-cap"><p class="script">Made with love.</p><p>Here is where Cravdo is, and where it is going.</p></div>
+      <div class="hero-cap"><p class="script">Made with love.</p><p>We’re exploring monk fruit sweeteners, jaggery &amp; raw sugars, along with ragi (finger millet), jowar (sorghum) &amp; bajra (pearl millet), while focusing on better protein and carbohydrate balance.</p></div>
       <div class="cue" aria-hidden="true"><span>Scroll</span><i></i></div>
     </div>
   </div>
 </header>
 
+<section class="sheet board" id="board" aria-label="Upcoming events">
+  <div class="wrap">
+    <div class="board-head">
+      <p class="eyebrow rv">Upcoming events</p>
+      <h2 class="h2 rv" style="--d:.08s">CRAVDO Navratri Stalls 💙💛</h2>
+      <p class="lede rv" style="--d:.14s">Come celebrate Navratri with CRAVDO! ✨</p>
+    </div>
+    <ul class="blist bev">
+          <li class="bnote rv" style="--d:0.00s"><span class="pin"></span><span class="when">📍 15 Oct</span><h4>Supernova</h4><p>Sector 94, Noida</p></li>
+          <li class="bnote rv" style="--d:0.07s"><span class="pin"></span><span class="when">📍 17 Oct</span><h4>Exotica Fresco</h4><p>Sector 137, Noida</p></li>
+          <li class="bnote rv" style="--d:0.14s"><span class="pin"></span><span class="when">📍 18 Oct</span><h4>VVIP Homes</h4><p>Gaur City 2, Greater Noida West</p></li>
+          <li class="bnote hl rv" style="--d:0.21s"><span class="pin"></span><span class="when">📍 19 Oct</span><h4>Grand Dandiya Night</h4><p>DASNAC The Jewel of Noida, Sector 75, Noida</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sheet journey" id="journey" aria-label="Cravdo photo journal">
+  <div class="wrap jhead">
+    <div style="display:grid;gap:14px"><p class="eyebrow rv">Photo journal</p><h2 class="h2 rv" style="--d:.08s">Our journey, so far.</h2></div>
+    <div class="jbtns rv" style="--d:.14s">
+      <button class="icon-btn" id="gPrev" type="button" aria-label="Previous photos"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 3L5 9l6 6"/></svg></button>
+      <button class="icon-btn" id="gNext" type="button" aria-label="Next photos"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+  <div class="gallery" id="gallery" tabindex="0" aria-label="Photo gallery. Scroll sideways to see more.">
+    <figure class="shot"><div class="ph"><img src="img/stall-day.jpg" alt="Azym Malik behind the first Cravdo stall, with the banner above trays of donuts, buns, cookies and brownies" loading="lazy"></div><figcaption><b>Our first stall</b>Jamia Millia Islamia university, 21 August. It went well, so we decided to expand as soon as we could.</figcaption></figure>
+    <figure class="shot"><div class="ph"><img src="img/stall-night.jpg" alt="The Cravdo first stall in the evening, with the banner, a menu card and trays of fresh bakes on a green folding table" loading="lazy"></div><figcaption><b>The first stall, in the evening</b>Fresh bakes on the table and the Cravdo banner overhead.</figcaption></figure>
+    <figure class="shot"><div class="ph"><img src="img/azym.jpg" alt="Azym Malik standing in front of a wall of clay pots" loading="lazy" style="object-position:50% 20%"></div><figcaption><b>The founder</b>Azym Malik started Cravdo in 2025 with one idea: healthy fast food.</figcaption></figure>
+    <figure class="shot"><div class="ph"><img src="img/interior.jpg" alt="Concept of the Cravdo café in butter yellow and pastel blue" loading="lazy" style="object-position:30% 50%"></div><figcaption><b>The space we are dreaming up</b>Butter yellow walls, pastel blue panelling and a counter full of treats. Concept render.</figcaption></figure>
+    <figure class="shot"><div class="ph"><img src="img/case.jpg" alt="Concept of the Cravdo display case with donuts, brownies, cheesecake jars, cookies and breads" loading="lazy"></div><figcaption><b>The display, imagined</b>Donuts, brownies, cheesecake jars, cookies and breads. Concept render.</figcaption></figure>
+    <figure class="shot more"><div class="ph"><p class="script">More to come.</p></div><figcaption><b>The journey continues</b>New photos land here as Cravdo grows.</figcaption></figure>
+  </div>
+</section>
+
 <section class="sheet svc" id="order">
   <div class="wrap">
     <div class="svc-head">
-      <p class="eyebrow rv">Order</p>
-      <h2 class="h2 rv" style="--d:.08s">Get Cravdo your way.</h2>
+      <div><p class="eyebrow rv">Order</p>
+      <h2 class="h2 rv" style="--d:.08s">Get Cravdo your way.</h2></div>
+
     </div>
     <div class="svc-grid">
       <article class="svc-card rv">
+        <span class="tag soon">Online orders coming soon</span>
         <span class="tag">Delhi NCR only</span>
         <h3>Order for delivery</h3>
         <p>Pick from the menu, pay, and we bring it to you anywhere in Delhi NCR. Delivery is charged extra and depends on your location.</p>
@@ -387,6 +622,40 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
         <button class="btn" type="button" data-open="cart">Order From Cravdo Cart near you</button>
         <p class="note">Try the demo to see how it will work. No real carts or payments yet.</p>
       </article>
+      <article class="svc-card diet rv" id="diet" style="--d:.14s">
+        <div class="dtxt">
+          <span class="tag">Personalised</span>
+          <h3>Diet &amp; Workout Plans</h3>
+          <p>Get a personalized diet plan curated by our experts around your goals, lifestyle, and nutritional needs.</p>
+          <p>From weight loss to muscle gain, we create practical plans designed to fit your routine and help you stay consistent.</p>
+          <button class="btn" type="button" data-open="diet">Choose my plan</button>
+        </div>
+        <div class="plans-show">
+          <p class="pl-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19C5 10 11 5 20 4c0 9-5 15-14 15z"/><path d="M5 19c3-5 6-8 10-10"/></svg>Cravdo Diet &amp; Workout Plans</p>
+          <div class="plr"><span class="pr">₹299</span><span class="pn"><b><span class="sn">#1</span>Diet Chart</b><small>Personalized diet chart based on your goals, lifestyle &amp; preferences.</small></span></div>
+          <div class="plr"><span class="pr">₹299</span><span class="pn"><b><span class="sn">#2</span>Workout Plan</b><small>Personalized workout plan based on your goals, fitness level &amp; experience.</small></span></div>
+          <div class="plr hot"><span class="badge">Most popular</span><span class="pr">₹499<s>₹598</s></span><span class="pn"><b><span class="sn">#3</span>Diet Chart + Workout Plan</b><small>Personalized diet chart + personalized workout plan, together. Save ₹99.</small></span></div>
+          <div id="morePlans" hidden class="more-plans">
+          <div class="plr"><span class="pr">₹499</span><span class="pn"><b><span class="sn">#4</span>Diet Chart or Workout Plan + Expert</b><small>Personalized diet chart or workout plan + up to 5 questions/day with our expert.</small></span></div>
+          <div class="plr"><span class="pr">₹699</span><span class="pn"><b><span class="sn">#5</span>Diet Chart or Workout Plan + Expert Pro</b><small>Personalized diet chart or workout plan + up to 10 questions/day with our expert.</small></span></div>
+          <div class="plr"><span class="pr">₹299</span><span class="pn"><b><span class="sn">#6</span>Expert Doubt-Clearing Session</b><small>A 15-minute call or video call with our expert to clear your doubts.</small></span></div>
+          <div class="plr"><span class="pr">₹999</span><span class="pn"><b><span class="sn">#7</span>Expert Chat, Unlimited</b><small>1 month of texting our expert with unlimited questions. Replies within 12 hours.</small></span></div>
+          </div>
+          <button type="button" class="btn plans-more" id="morePlansBtn" aria-expanded="false" aria-controls="morePlans">Show more plans <span aria-hidden="true">▾</span></button>
+          <p class="pl-note">All packs run for 1 month.</p>
+          <button type="button" class="btn" data-open="diet">Choose my plan</button>
+        </div>
+      </article>
+      <article class="svc-card bulk rv" id="bulk" style="--d:.1s">
+        <div class="dtxt">
+          <span class="tag">Businesses &amp; bulk</span>
+          <h3>Regular &amp; bulk orders</h3>
+          <p>Direct to business and continuous delivery. Stock up on Cravdo on a schedule that suits you: daily, every 2 days, every 4 days, weekly or monthly.</p>
+        </div>
+        <button class="btn special" type="button" data-open="bulk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.400 6.600L21 11l-6.600 2.400L12 20l-2.400-6.600L3 11l6.600-2.400z"/></svg>Contact for Bulk Order</button>
+      </article>
+
+
     </div>
   </div>
 </section>
@@ -395,15 +664,27 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
   <div class="wrap story-grid">
     <div class="story-head">
       <p class="eyebrow rv">The Cravdo update</p>
-      <h2 class="h2 rv" style="--d:.08s">Started as healthy fast food. Growing into healthy desserts.</h2>
+      <h2 class="h2 rv" style="--d:.08s">Started as healthy fast food. Growing into healthier foods.</h2>
       <p class="lede rv" style="--d:.16s">Cravdo began in 2025 with one simple idea: food that is quick and still good for you. Along the way we started making healthy desserts too, and that is what our kitchen is busy with right now.</p>
     </div>
-    <ol class="tl" id="tl">
-      <li class="rv"><span class="eyebrow">2025</span><h3>The idea</h3><p>Healthy fast food. Simple, quick, and made to leave you feeling good.</p></li>
-      <li class="rv"><span class="eyebrow">Then</span><h3>Desserts joined in</h3><p>We began making healthy desserts, so a sweet craving doesn’t have to come with guilt.</p></li>
-      <li class="rv"><span class="eyebrow">Now</span><h3>In the kitchen</h3><p>We are preparing cakes, popsicle cakes, pop cakes, bento cakes, brownies, breads, donuts and more.</p></li>
-      <li class="rv"><span class="eyebrow">Next</span><h3>What we are building toward</h3><p>A full dessert range, healthy fast food on the menu, and a Cravdo space of our own.</p></li>
-    </ol>
+    <div class="notices">
+        <div class="n-head"><h3 class="n-title">Notices &amp; timeline</h3>
+          <div class="nf" role="group" aria-label="Show notices from">
+            <button type="button" class="on" data-yr="all" aria-pressed="true">All</button>
+            <button type="button" data-yr="2026" aria-pressed="false">2026</button>
+            <button type="button" data-yr="2025" aria-pressed="false">2025</button>
+          </div></div>
+        <ol class="tl" id="tl">
+        <li class="rv" data-yr="2025"><span class="eyebrow">2025</span><h3>The idea</h3><p>Cravdo began with one simple idea: healthy fast food.</p></li>
+        <li class="rv" data-yr="2025"><span class="eyebrow">2025</span><h3>Desserts joined in</h3><p>We began making healthy desserts, and the kitchen is now busy with cakes, brownies, breads, donuts and more.</p></li>
+        <li class="rv" data-yr="2026"><span class="eyebrow">21 Aug 2026</span><h3>Our first stall</h3><p>Our first stall at Jamia Millia Islamia university was a good success. From there we decided to expand as soon as possible.</p></li>
+        <li class="rv" data-yr="2026"><span class="eyebrow">Oct 2026</span><h3>Cravdo Carts, coming soon</h3><p>Trackable Cravdo carts are on their way. Try the demo in the order section.</p></li>
+        <li class="rv" data-yr="2026"><span class="eyebrow">Oct 2026</span><h3>Regular and bulk orders</h3><p>Businesses can now enquire about regular supply, from daily to monthly.</p></li>
+        <li class="rv" data-yr="2026"><span class="eyebrow">Oct 2026</span><h3>Diet &amp; workout plans are open</h3><p>Personalized diet charts and workout plans from ₹299, with expert plans for your daily questions.</p></li>
+        <li class="rv" data-yr="2026"><span class="eyebrow">Oct 2026</span><h3>Talk with the founder</h3><p>Message Azym directly from the new Talk with Founder section on this page.</p></li>
+        </ol>
+        <button class="more-btn" id="nMore" type="button" aria-expanded="false"><span>Show more</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5l5 5 5-5"/></svg></button>
+      </div>
   </div>
 </section>
 
@@ -429,12 +710,31 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
   </div>
 </section>
 
+<section class="bake" id="bake">
+  <div class="wrap">
+    <div class="bake-head">
+      <p class="eyebrow rv">The baking journey</p>
+      <h2 class="h2 rv" style="--d:.08s">Baked by Azym.</h2>
+      <p class="lede rv" style="--d:.14s">A few of the things Azym has baked along the way, from soft buns to flaky pastry.</p>
+    </div>
+    <div class="bk-grid">
+      <figure class="bk rv" style="--d:0.00s"><img src="img/bake-bun.jpg" width="619" height="1100" alt="A golden Korean bun split open with cream cheese and a crunchy nut topping, held on a white plate" loading="lazy"><figcaption><b>Korean cream-cheese bun</b>Soft Korean bun filled with cream and cheese, topped with nuts.</figcaption></figure>
+      <figure class="bk rv" style="--d:0.08s"><img src="img/bake-braid.jpg" width="820" height="908" alt="A wicker basket of golden braided breads dusted with herbs" loading="lazy"><figcaption><b>Braided breads</b>Herb-dusted braids, baked golden.</figcaption></figure>
+      <figure class="bk rv" style="--d:0.16s"><img src="img/bake-palmier2.jpg" width="820" height="820" alt="A white plate of heart-shaped sugar palmiers" loading="lazy"><figcaption><b>Sugar palmiers</b>Crisp, layered puff pastry hearts.</figcaption></figure>
+      <figure class="bk rv" style="--d:0.00s"><img src="img/bake-palmier.jpg" width="619" height="1100" alt="A hand holding a plate of sugar-topped palmiers on a lawn" loading="lazy"><figcaption><b>Palmiers, outdoors</b>Fresh enough to eat in the garden.</figcaption></figure>
+      <figure class="bk rv" style="--d:0.08s"><img src="img/bake-loaf.jpg" width="820" height="586" alt="Three loaves topped with rolled oats and mixed seeds on a baking tray" loading="lazy"><figcaption><b>Seeded oat loaves</b>Topped with oats and mixed seeds.</figcaption></figure>
+      <figure class="bk rv" style="--d:0.16s"><img src="img/bake-twists.jpg" width="619" height="1100" alt="A blue plate of golden cheese twists" loading="lazy"><figcaption><b>Cheese twists</b>Flaky pastry twisted with baked cheese.</figcaption></figure>
+      <figure class="bk rv" style="--d:0.00s"><img src="img/bake-fruitbun.jpg" width="619" height="1100" alt="Two glossy buns topped with colourful candied fruit and sugar crystals" loading="lazy"><figcaption><b>Tutti frutti buns</b>Sweet buns with candied fruit and sugar crystals.</figcaption></figure>
+      <figure class="bk rv" style="--d:0.08s"><img src="img/bake-cookies.jpg" width="619" height="1100" alt="Rows of golden cookies cooling on baking trays" loading="lazy"><figcaption><b>Golden cookies</b>Fresh from the tray.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
 <section class="space" id="space">
   <div class="space-frame" id="spaceFrame">
     <img src="img/interior.jpg" alt="Concept of the Cravdo café with a butter yellow wall and pastel blue counter" data-par="60" loading="lazy">
     <div class="space-txt"><div class="wrap" style="display:grid;gap:12px">
       <p class="eyebrow">The space we are building toward</p>
-      <h2 class="h2">A warm corner for guilt-free sweets.</h2>
       <p class="script">Eat sweet, feel good, live well.</p>
       <p class="note">Concept render of the Cravdo café.</p>
     </div></div>
@@ -465,7 +765,69 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
         <div><dt>Role</dt><dd>Founder &amp; CEO</dd></div>
         <div><dt>Making</dt><dd>Healthy food &amp; desserts</dd></div>
       </dl>
-      <div class="rv" style="--d:.3s"><a class="btn" href="https://wa.me/917900690012?text=Hi%20Azym%2C%20I%20saw%20the%20Cravdo%20update%20page." target="_blank" rel="noopener">Say hello on WhatsApp</a></div>
+      <div class="rv" style="--d:.3s;display:flex;gap:12px;flex-wrap:wrap"><a class="btn special" href="#azym" data-go="azym"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.400 6.600L21 11l-6.600 2.400L12 20l-2.400-6.600L3 11l6.600-2.400z"/></svg>Talk with Founder</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="sheet azym" id="azym">
+  <div class="wrap azym-grid">
+    <div class="a-left">
+      <p class="eyebrow rv">Straight to the founder</p>
+      <h2 class="h2 rv" style="--d:.08s">Say hello to Azym.</h2>
+      <p class="lede rv" style="--d:.14s">A hello, an idea, a collaboration or a hungry thought. Message Azym directly, or find him on these.</p>
+      <p class="handle rv" style="--d:.18s">@azymmalik</p>
+      <div class="socials rv" style="--d:.22s">
+        <a class="soc" href="https://www.instagram.com/azymmalik/" target="_blank" rel="noopener"><span class="socic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.200" cy="6.800" r=".6" fill="currentColor"/></svg></span><span>Instagram</span></a>
+        <a class="soc" href="https://www.snapchat.com/add/azymmalik" target="_blank" rel="noopener"><span class="socic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c-2.800 0-4.500 2-4.500 4.800v2.200c-.6.100-1.200.3-1.700.5.4.7 1 .9 1.700 1-.2 1.200-1.200 2.200-2.500 2.800.9.6 1.800.7 2.700.8.3.5.8 1 1.600 1.100.8.100 1.200-.4 2.700-.4s1.900.5 2.700.4c.8-.1 1.300-.6 1.600-1.100.9-.1 1.800-.2 2.700-.8-1.300-.6-2.300-1.600-2.500-2.800.7-.1 1.300-.3 1.700-1-.5-.2-1.100-.4-1.700-.5V7.800C16.500 5 14.800 3 12 3z"/></svg></span><span>Snapchat</span></a>
+</div>
+    </div>
+    <div class="fcard rv" style="--d:.12s">
+      <h3>Message the founder</h3>
+      <form class="form" id="fFounder" novalidate>
+        <div class="two"><label>Name<input name="name" autocomplete="name"></label><label>Phone number<input name="phone" type="tel" inputmode="tel" autocomplete="tel"></label></div>
+        <div class="two"><label>Email<input name="email" type="email" autocomplete="email"></label><label>City<input name="city" autocomplete="address-level2"></label></div>
+        <label>Instagram (optional)<input name="insta" placeholder="@yourhandle" autocomplete="off"></label>
+        <label>Message<textarea name="message" placeholder="What would you like to tell Azym?"></textarea></label>
+        <p class="err" role="alert"></p>
+        <button class="btn" type="submit">Send message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="biz" id="biz">
+  <div class="wrap">
+    <div class="bizband rv">
+      <p class="eyebrow">Connect</p>
+      <h2 class="h2">Business &amp; Investment Enquiries</h2>
+      <p class="lede">Partnerships, investment or business ideas. Write to us or message us on WhatsApp.</p>
+      <div class="bizbtns">
+        <a class="btn" href="mailto:hi@cravdo.in?subject=Business%20and%20investment%20enquiry"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg>hi@cravdo.in</a>
+        <a class="btn ghost" href="https://wa.me/917900690012?text=Hi%20Cravdo%2C%20I%20have%20a%20business%20or%20investment%20enquiry." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.400-4.600A8.500 8.500 0 1 1 8.700 18.600z"/><path d="M9 9.500c0 3 2.500 5.500 5.500 5.500l1.200-1.500-2-1-.8.700c-1-.4-1.900-1.300-2.300-2.300l.7-.8-1-2z"/></svg>WhatsApp 7900690012</a>
+      </div>
+      <p class="m-small">If a button does not open an app on your device, use hi@cravdo.in or +91 79006 90012 directly.</p>
+    </div>
+  </div>
+</section>
+
+<section class="care" id="care">
+  <div class="wrap care-grid">
+    <div class="c-left">
+      <p class="eyebrow rv">Feedback &amp; Complaints</p>
+      <h2 class="h2 rv" style="--d:.08s">Tell us how we did.</h2>
+      <p class="lede rv" style="--d:.14s">Loved something? Something not right? Share it here. If you have an order ID, add it so we can find your order quickly.</p>
+      <p class="m-small rv" style="--d:.18s">Email: <b>hi@cravdo.in</b></p>
+    </div>
+    <div class="fcard plain rv" style="--d:.12s">
+      <h3>Feedback &amp; Complaints</h3>
+      <form class="form" id="fCare" novalidate>
+        <div class="two"><label>Name<input name="name" autocomplete="name"></label><label>Phone number<input name="phone" type="tel" inputmode="tel" autocomplete="tel"></label></div>
+        <div class="two"><label>Email<input name="email" type="email" autocomplete="email"></label><label>Order ID (if any)<input name="order" placeholder="e.g. CRV-ABC123" autocomplete="off"></label></div>
+        <label>Your feedback or complaint<textarea name="message" placeholder="Tell us what happened or what you loved."></textarea></label>
+        <p class="err" role="alert"></p>
+        <button class="btn" type="submit">Send</button>
+      </form>
     </div>
   </div>
 </section>
@@ -485,17 +847,15 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
           <span class="tx"><small>Instagram</small><b>@cravdo</b></span></a>
         <div class="row rv" style="--d:.22s">
           <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg></span>
-          <span class="tx"><small>Contact us</small><b><a href="mailto:hi.cravdo@gmail.com" id="mail">hi.cravdo@gmail.com</a></b></span>
-          <button class="copy" type="button" data-copy="hi.cravdo@gmail.com">Copy</button></div>
+          <span class="tx"><small>Contact us</small><b><a href="mailto:hi@cravdo.in" id="mail">hi@cravdo.in</a></b></span>
+          <button class="copy" type="button" data-copy="hi@cravdo.in">Copy</button></div>
       </div>
     </div>
     <div class="qr rv" style="--d:.12s">
-      <h3>Share this page</h3>
-      <div class="qr-box" id="qrBox" aria-label="QR code that opens this page"><span>Add your website link below to make the QR.</span></div>
-      <p>Scan to open the latest Cravdo update.</p>
-      <label for="qrLink">Link inside the QR</label>
-      <input id="qrLink" type="url" inputmode="url" placeholder="https://your-website.com" autocomplete="off">
-      <p>If the page moves to your own domain, paste the new address and the QR updates.</p>
+      <h3>Scan to visit Cravdo</h3>
+      <div class="qr-box" id="qrBox" aria-label="QR code that opens cravdo.in"><span>Loading QR code</span></div>
+      <p>Scan to open cravdo.in</p>
+      <a class="qrlink" href="https://cravdo.in" target="_blank" rel="noopener">cravdo.in</a>
     </div>
   </div>
 </section>
@@ -503,7 +863,7 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
 <footer class="foot">
   <div class="wrap">
     <a class="brand" href="#top" data-go="top"><img src="img/logo.jpg" alt=""><span>Cravdo</span></a>
-    <small>Healthy desserts · Bite Me, I’m Cravdo · © 2026 Cravdo</small>
+    <small>Healthier foods · Bite Me, I’m Cravdo · © 2026 Cravdo</small>
   </div>
 </footer>
 <div class="modal" id="modal" hidden>
@@ -533,7 +893,7 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
   var hero=$('.hero'), stage=$('.hero-stage'), arch=$('.hero-arch'), archImg=arch.querySelector('img');
   var copy=$('.hero-copy'), cap=$('.hero-cap'), cue=$('.cue');
   var hs=$('#menu'), hsStage=$('.hs-stage'), track=$('#track'), hbar=$('#hbar');
-  var tl=$('#tl'), frame=$('#spaceFrame');
+  var tl=$('#tl'), frame=$('#spaceFrame'), gal=$('#gallery'), galTouched=false;
   var pars=[].slice.call(document.querySelectorAll('[data-par]'));
   var dist=0, ticking=false;
 
@@ -585,6 +945,11 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
       });
     }
 
+    if(!reduce&&gal&&!galTouched){
+      var gr=gal.getBoundingClientRect();
+      var gp=clamp((vh*.9-gr.top)/(vh*.9+gr.height*.6));
+      gal.scrollLeft=gp*(gal.scrollWidth-gal.clientWidth);
+    }
     var tr=tl.getBoundingClientRect();
     tl.style.setProperty('--tl',clamp((vh*.62-tr.top)/tr.height));
     [].forEach.call(tl.children,function(li){
@@ -610,7 +975,7 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
       ev.preventDefault();
       var id=a.getAttribute('data-go'), el=id==='top'?document.body:document.getElementById(id);
       if(id==='top'){window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});return;}
-      var top=el.getBoundingClientRect().top+window.scrollY-(id==='menu'?0:20);
+      var top=el.getBoundingClientRect().top+window.scrollY-(id==='menu'?0:(id==='carts'||id==='diet'||id==='board'?130:20));
       window.scrollTo({top:top,behavior:reduce?'auto':'smooth'});
     });
   });
@@ -788,7 +1153,7 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
   }
 
   function render(){
-    ({map:viewMap,menu:viewMenu,details:viewDetails,pay:viewPay,done:viewDone})[ST.step]();
+    ({map:viewMap,menu:viewMenu,details:viewDetails,pay:viewPay,done:viewDone,diet:viewDiet,dietPay:viewDietPay,dietDone:viewDietDone,bulk:viewBulk,bulkDone:viewBulkDone})[ST.step]();
     mBody.scrollTop=0;
   }
   function go(step){ST.step=step;ST.err='';render()}
@@ -796,12 +1161,13 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
     var s=ST.step;
     if(s==='menu')go('map'); else if(s==='details')go('menu');
     else if(s==='pay')go(ST.mode==='cart'?'menu':'details');
+    else if(s==='dietPay')go('diet');
   }
   function openModal(mode){
     ST.mode=mode;ST.qty={};ST.cart=null;ST.orderId='';ST.err='';
     lastFocus=document.activeElement;
     modal.hidden=false;document.body.style.overflow='hidden';
-    ST.step=mode==='cart'?'map':'menu';render();panel.focus();
+    ST.step=mode==='cart'?'map':(mode==='diet'?'diet':(mode==='bulk'?'bulk':'menu'));render();panel.focus();
   }
   function closeModal(){
     modal.hidden=true;document.body.style.overflow='';
@@ -857,6 +1223,9 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
       else{var e=validate();if(e){ST.err=e;$('#formErr').textContent=e;return}go('pay')}
     }
     else if(a==='pay'){ST.orderId=newId();go('done')}
+    else if(a==='dietSend'){var bd2=dietCheck();if(bd2){showDietErr(bd2);return}D.ref='DC-'+newId().slice(4);try{window.open(waLink(dietText()),'_blank','noopener')}catch(e){}go('dietDone')}
+    else if(a==='dietNext'){var bd=dietCheck();if(bd){showDietErr(bd);return}go('dietPay')}
+    else if(a==='dietPay'){D.ref='DC-'+newId().slice(4);go('dietDone')}
     else if(a==='copyid'){
       var id=ST.orderId, ok=function(){say('Copied '+id)}, bad=function(){var r=document.createRange();r.selectNodeContents($('#oidTxt'));var s=window.getSelection();s.removeAllRanges();s.addRange(r);say('Order ID selected')};
       try{navigator.clipboard.writeText(id).then(ok,bad)}catch(e2){bad()}
@@ -879,22 +1248,383 @@ footer.foot{background:var(--deep);color:var(--on-deep);padding-block:36px 56px;
   document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&!modal.hidden)closeModal()});
   var mini=$('#miniMap'); if(mini)mini.innerHTML=mapSVG(false);
 
+  /* ===== diet chart ===== */
+  var PLANS=[
+    {id:'p1',n:1,inc:'diet',name:'Diet Chart',desc:'Personalized diet chart based on your goals, lifestyle & preferences.',price:299},
+    {id:'p2',n:2,inc:'workout',name:'Workout Plan',desc:'Personalized workout plan based on your goals, fitness level & experience.',price:299},
+    {id:'p3',n:3,inc:'both',name:'Diet Chart + Workout Plan',desc:'Personalized diet chart + personalized workout plan, together. Save \u20b999 (\u20b9598 if bought separately).',price:499,pop:true},
+    {id:'p4',n:4,inc:'either',name:'Diet Chart or Workout Plan + Expert',desc:'Personalized diet chart or workout plan + up to 5 questions/day with our expert.',price:499},
+    {id:'p5',n:5,inc:'either',name:'Diet Chart or Workout Plan + Expert Pro',desc:'Personalized diet chart or workout plan + up to 10 questions/day with our expert.',price:699},
+    {id:'p6',n:6,inc:'none',name:'Expert Doubt-Clearing Session',desc:'A 15-minute call or video call with our expert to clear your doubts.',price:299},
+    {id:'p7',n:7,inc:'none',name:'Expert Chat, Unlimited',desc:'1 month of texting our expert with unlimited questions. Replies within 12 hours.',price:999}
+  ];
+  var EXPS=['Beginner','Intermediate','Advanced'];
+  var ACT=['Sitting all day','Walk below 5,000 steps daily','Walk above 5,000 steps daily','Gym','Cardio','Job that needs proper activity'];
+  var GOAL=['Build muscles','Maintain muscles','Lose weight','Lose fat','Athletic body'];
+  var PREF=[['Chicken'],['Egg'],['Mutton'],['Carabeef'],['Fruits','fruits','Which fruits?'],['Veggies','veg','Which veggies?'],['Oats'],['Muesli'],['Quinoa'],['Milk'],['Dahi'],['Yogurt'],['Paneer'],['Cheese'],['Chhach'],['Millet roti','millet','Which millets? (bajra, jowar, ragi, chana...)'],['Gond katira'],['Chia seeds'],['Beans','beans','Which beans?'],['Other','other','Anything else you eat?']];
+  var HEALTH=['Medical condition','Ongoing treatment','Pregnancy','Eating disorder','Food allergy','Other health concern','Other (specify)'];
+  var NONE='None of these';
+  var TERMS=[
+    'The diet chart is prepared based on the information provided by the customer and is intended for general nutrition, fitness, and lifestyle guidance only. It is not a substitute for medical advice, diagnosis, or treatment.',
+    'Customers must provide complete and accurate information regarding their age, weight, goals, dietary preferences, allergies, medications, medical conditions, and other relevant health information. CRAVDO shall not be responsible for issues arising from incomplete or inaccurate information provided by the customer.',
+    'Customers with any medical condition, ongoing treatment, pregnancy, eating disorder, food allergy, or other health concern must consult a qualified doctor or registered dietitian before following the diet plan.',
+    'Individual results may vary depending on factors including adherence, lifestyle, activity level, metabolism, sleep, and existing health conditions. CRAVDO does not guarantee any specific weight loss, weight gain, muscle gain, or other health outcome.',
+    'The customer is responsible for deciding whether a particular food, supplement, exercise, or recommendation is suitable for them and should discontinue any item that causes an adverse reaction and seek appropriate professional advice.',
+    'The diet chart is personalized for the individual who purchased it and must not be shared, resold, reproduced, or distributed without permission.',
+    'Once the personalized diet chart has been prepared and delivered, refunds or cancellations may not be available, except where required by applicable law.',
+    'By submitting the form and proceeding with the diet-chart service, the customer confirms that they have read, understood, and agreed to these Terms & Conditions.'
+  ];
+  var D={pick:'',exp:'',name:'',age:'',wa:'',email:'',hunit:'cm',hcm:'',hft:'',hin:'',weight:'',sleep:'',act:[],goal:[],plan:'',pref:[],
+    sp:{fruits:'',veg:'',millet:'',beans:'',other:'',hother:''},health:[],hdet:'',terms:false,read:false};
+
+  function dv(k){return esc(D[k])}
+  function tk(g,val,key,ph){
+    var on=D[g].indexOf(val)>-1;
+    return '<div class="tk"><label class="tick"><input type="checkbox" data-g="'+g+'" value="'+esc(val)+'"'+(key?' data-spkey="'+key+'"':'')+(on?' checked':'')+'><span>'+esc(val)+'</span></label>'
+      +(key?'<input class="sp" data-sp="'+key+'" placeholder="'+esc(ph||'Please specify')+'" aria-label="'+esc(ph||'Please specify')+'" value="'+esc(D.sp[key])+'"'+(on?'':' hidden')+'>':'')+'</div>';
+  }
+  function needDet(){return D.health.some(function(x){return x!==NONE&&x!=='Other (specify)'})}
+  function planOf(){return PLANS.filter(function(p){return p.id===D.plan})[0]}
+  function incDiet(){var p=planOf();if(!p)return true;return p.inc==='diet'||p.inc==='both'||(p.inc==='either'&&D.pick==='Diet Chart')}
+  function incWork(){var p=planOf();if(!p)return false;return p.inc==='workout'||p.inc==='both'||(p.inc==='either'&&D.pick==='Workout Plan')}
+  function syncBlocks(){
+    var p=planOf(), a=$('#fs-pick'), b=$('#fs-exp'), c=$('#fs-pref');
+    if(a)a.hidden=!(p&&p.inc==='either'); if(b)b.hidden=!incWork(); if(c)c.hidden=!incDiet();
+  }
+  function planLabel(p){return '#'+p.n+' '+p.name}
+  function heightText(){return D.hunit==='cm'?D.hcm+' cm':D.hft+' ft '+(D.hin||0)+' in'}
+  function prefText(){
+    return D.pref.map(function(v){
+      var row=PREF.filter(function(r){return r[0]===v})[0];
+      return row&&row[1]&&D.sp[row[1]]?v+' ('+D.sp[row[1]].trim()+')':v;
+    }).join(', ');
+  }
+  function healthText(){
+    return D.health.map(function(v){return v==='Other (specify)'&&D.sp.hother?'Other: '+D.sp.hother.trim():v}).join(', ');
+  }
+
+  function viewDiet(){
+    head('Diet & Workout · Step 1 of 2','Tell us about you',false);
+    var plans=PLANS.map(function(p){
+      return '<label class="plan"><input type="radio" name="plan" data-f="plan" value="'+p.id+'"'+(D.plan===p.id?' checked':'')+'><span class="pt"><b><span class="sn">#'+p.n+'</span>'+esc(p.name)+(p.pop?'<span class="popb">Most popular</span>':'')+'</b><small>'+esc(p.desc)+'</small></span><span class="pp">'+rs(p.price)+'</span></label>';
+    }).join('');
+    mBody.innerHTML='<div class="intro"><p>Get a personalized diet plan curated by our experts around your goals, lifestyle, and nutritional needs.</p><p>From weight loss to muscle gain, we create practical plans designed to fit your routine and help you stay consistent.</p></div>'
+      +'<p class="m-small">Every field is required except email.</p>'
+      +'<form class="form" id="dietForm" novalidate>'
+      +'<div class="two"><label>Name<input id="d-name" data-f="name" autocomplete="name" value="'+dv('name')+'"></label><label>Age<input id="d-age" data-f="age" type="number" inputmode="numeric" min="10" max="100" value="'+dv('age')+'"></label></div>'
+      +'<div class="two"><label>WhatsApp number<input id="d-wa" data-f="wa" type="tel" inputmode="tel" autocomplete="tel" placeholder="10-digit mobile" value="'+dv('wa')+'"></label><label>Email (optional)<input id="d-email" data-f="email" type="email" autocomplete="email" value="'+dv('email')+'"></label></div>'
+      +'<div class="two"><label>Height in<select id="d-hunit" data-f="hunit"><option value="cm">centimetres</option><option value="ft">feet and inches</option></select></label><label>Weight (kg)<input id="d-weight" data-f="weight" type="number" step="0.1" inputmode="decimal" value="'+dv('weight')+'"></label></div>'
+      +'<label class="hcm">Height (cm)<input id="d-hcm" data-f="hcm" type="number" step="0.1" inputmode="decimal" value="'+dv('hcm')+'"></label>'
+      +'<div class="two hft" hidden><label>Feet<input id="d-hft" data-f="hft" type="number" step="1" inputmode="numeric" value="'+dv('hft')+'"></label><label>Inches<input id="d-hin" data-f="hin" type="number" step="0.5" inputmode="decimal" value="'+dv('hin')+'"></label></div>'
+      +'<label>Sleep, in hours per night (decimals are fine)<input id="d-sleep" data-f="sleep" type="number" step="0.1" min="0" max="16" inputmode="decimal" placeholder="e.g. 6.5" value="'+dv('sleep')+'"></label>'
+      +'<fieldset class="fs" id="fs-act"><legend>Activity level <span>tick all that apply</span></legend><div class="ticks-grid">'+ACT.map(function(a){return tk('act',a)}).join('')+'</div></fieldset>'
+      +'<fieldset class="fs" id="fs-goal"><legend>Goal <span>tick all that apply</span></legend><div class="ticks-grid">'+GOAL.map(function(a){return tk('goal',a)}).join('')+'</div></fieldset>'
+      +'<fieldset class="fs" id="fs-plan"><legend>What do you want?</legend>'+plans+'</fieldset>'
+      +'<fieldset class="fs" id="fs-pick" hidden><legend>This pack is for <span>choose one</span></legend><div class="ticks-grid">'+['Diet Chart','Workout Plan'].map(function(v){return '<label class="tick"><input type="radio" name="pick" data-f="pick" value="'+v+'"'+(D.pick===v?' checked':'')+'><span>'+v+'</span></label>'}).join('')+'</div></fieldset>'
+      +'<fieldset class="fs" id="fs-exp" hidden><legend>Training experience</legend><div class="ticks-grid">'+EXPS.map(function(v){return '<label class="tick"><input type="radio" name="exp" data-f="exp" value="'+v+'"'+(D.exp===v?' checked':'')+'><span>'+v+'</span></label>'}).join('')+'</div></fieldset>'
+      +'<fieldset class="fs" id="fs-pref"><legend>What can you eat? <span>tick everything you eat and tell us which ones</span></legend><div class="ticks-grid">'+PREF.map(function(r){return tk('pref',r[0],r[1],r[2])}).join('')+'</div></fieldset>'
+      +'<fieldset class="fs" id="fs-health"><legend>Health details <span>tick all that apply</span></legend><div class="ticks-grid">'
+        +HEALTH.map(function(h){return tk('health',h,h==='Other (specify)'?'hother':'',h==='Other (specify)'?'Please specify':'')}).join('')+tk('health',NONE)+'</div>'
+        +'<label id="hdetWrap"'+(needDet()?'':' hidden')+'>Tell us more (condition, medicines, allergies)<textarea id="d-hdet" data-f="hdet">'+dv('hdet')+'</textarea></label>'
+        +'<p class="m-small" id="healthNote"'+(D.health.some(function(x){return x==='Pregnancy'||x==='Eating disorder'||x==='Medical condition'||x==='Ongoing treatment'||x==='Food allergy'||x==='Other health concern'})?'':' hidden')+'>Please consult a qualified doctor or registered dietitian before following any diet or workout plan.</p></fieldset>'
+      +'<fieldset class="fs" id="fs-terms"><legend>Terms &amp; Conditions <span>read to the end before going forward</span></legend>'
+        +'<div class="terms" id="termsBox" tabindex="0" role="region" aria-label="Diet Chart Terms and Conditions"><h4>Diet Chart – Terms &amp; Conditions</h4><ol>'+TERMS.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ol></div>'
+        +'<p class="m-small" id="termsHint">'+(D.read?'Thanks for reading.':'Scroll to the end of the terms to unlock the box below.')+'</p>'
+        +'<label class="tick"><input type="checkbox" id="d-terms" data-f="terms"'+(D.terms?' checked':'')+(D.read?'':' disabled')+'><span>I have read and agree to the Terms &amp; Conditions</span></label></fieldset>'
+      +'<p class="err" id="dErr" role="alert"></p></form>';
+    $('#d-hunit').value=D.hunit; toggleH(); syncBlocks();
+    var tb=$('#termsBox');
+    var chk=function(){
+      if(tb.scrollTop+tb.clientHeight>=tb.scrollHeight-6){D.read=true;$('#d-terms').disabled=false;$('#termsHint').textContent='Thanks for reading. Tick the box to agree.'}
+    };
+    tb.addEventListener('scroll',chk); chk();
+    foot('<p class="m-small">Your details are sent to Cravdo on WhatsApp.</p><div class="acts"><button type="button" class="btn" data-act="dietSend">Send this to WhatsApp</button></div>');
+  }
+  function toggleH(){
+    var cm=D.hunit==='cm';
+    var a=mBody.querySelector('.hcm'), b=mBody.querySelector('.hft');
+    if(a)a.hidden=!cm; if(b)b.hidden=cm;
+  }
+
+  function dietCheck(){
+    var f=D, bad=function(m,sel){return {m:m,sel:sel}}, n;
+    if(f.name.trim().length<2)return bad('Please enter your name.','#d-name');
+    n=+f.age; if(!(n>=10&&n<=100))return bad('Please enter your age, between 10 and 100.','#d-age');
+    var ph=f.wa.replace(/[\s-]/g,'').replace(/^(\+91|91|0)(?=\d{10}$)/,'');
+    if(!/^[6-9]\d{9}$/.test(ph))return bad('Please enter a valid 10-digit WhatsApp number.','#d-wa');
+    if(f.email.trim()&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.trim()))return bad('That email address does not look right.','#d-email');
+    if(f.hunit==='cm'){n=+f.hcm;if(!(n>=100&&n<=250))return bad('Please enter your height in cm, between 100 and 250.','#d-hcm')}
+    else{n=+f.hft;var inch=+f.hin||0;if(!(n>=3&&n<=8)||inch<0||inch>=12)return bad('Please enter feet (3 to 8) and inches (0 to 11).','#d-hft')}
+    n=+f.weight; if(!(f.weight!==''&&n>=20&&n<=300))return bad('Please enter your weight in kg.','#d-weight');
+    n=+f.sleep; if(!(f.sleep!==''&&n>=0&&n<=16))return bad('Please enter your sleep in hours, for example 6.5.','#d-sleep');
+    if(!f.act.length)return bad('Please tick at least one activity level.','#fs-act');
+    if(!f.goal.length)return bad('Please tick at least one goal.','#fs-goal');
+    if(!f.plan)return bad('Please choose what you want.','#fs-plan');
+    var pl=planOf();
+    if(pl.inc==='either'&&!f.pick)return bad('Please choose whether this pack is for a diet chart or a workout plan.','#fs-pick');
+    if(incWork()&&!f.exp)return bad('Please choose your training experience.','#fs-exp');
+    if(incDiet()){
+      if(!f.pref.length)return bad('Please tick what you can eat.','#fs-pref');
+      for(var i=0;i<PREF.length;i++){var r=PREF[i];if(r[1]&&f.pref.indexOf(r[0])>-1&&!f.sp[r[1]].trim())return bad('Please tell us which: '+r[0].toLowerCase()+'.','[data-sp="'+r[1]+'"]')}
+    }
+    if(!f.health.length)return bad('Please tick your health details, or "None of these".','#fs-health');
+    if(f.health.indexOf('Other (specify)')>-1&&!f.sp.hother.trim())return bad('Please specify your other health detail.','[data-sp="hother"]');
+    if(needDet()&&!f.hdet.trim())return bad('Please add a few details about your health.','#d-hdet');
+    if(!f.read)return bad('Please read the Terms & Conditions to the end.','#termsBox');
+    if(!f.terms)return bad('Please tick the box to agree to the Terms & Conditions.','#d-terms');
+    f.wa=ph; return null;
+  }
+  function showDietErr(b){
+    var e=$('#dErr'); if(e)e.textContent=b.m;
+    var el=mBody.querySelector(b.sel);
+    if(el){try{el.scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'});el.focus&&el.focus({preventScroll:true})}catch(x){}}
+  }
+
+  function dietText(){
+    var p=planOf(), ref=D.ref?'\nReference: '+D.ref:'';
+    var t='Hi Cravdo! I would like to buy a plan.\n\nPackage: '+planLabel(p)+' ('+rs(p.price)+')';
+    if(p.inc==='either')t+='\nPack is for: '+D.pick;
+    t+='\nName: '+D.name.trim()+'\nAge: '+D.age+'\nWhatsApp: '+D.wa+'\nEmail: '+(D.email.trim()||'not given')
+      +'\nHeight: '+heightText()+'\nWeight: '+D.weight+' kg\nSleep: '+D.sleep+' hours\nActivity: '+D.act.join(', ')+'\nGoal: '+D.goal.join(', ');
+    if(incWork())t+='\nTraining experience: '+D.exp;
+    if(incDiet())t+='\nCan eat: '+prefText();
+    t+='\nHealth: '+healthText()+(D.hdet.trim()?'\nDetails: '+D.hdet.trim():'')+'\nAgreed to Terms & Conditions: yes'+ref;
+    return t;
+  }
+
+  function viewDietPay(){
+    head('Diet & Workout · Step 2 of 2','Review and pay',true);
+    var p=planOf();
+    var methods=[['upi','UPI'],['card','Card'],['net','Net banking']].map(function(m){return '<label><input type="radio" name="pm" value="'+m[0]+'"'+(ST.pay===m[0]?' checked':'')+'>'+m[1]+'</label>'}).join('');
+    mBody.innerHTML='<div class="sum"><div><span>'+esc(D.name.trim())+' · '+esc(D.goal.join(', '))+'</span><span></span></div><div><span>'+esc(planLabel(p))+(p.inc==='either'?' ('+esc(D.pick)+')':'')+'</span><span>'+rs(p.price)+'</span></div><div class="t"><span>Total</span><span>'+rs(p.price)+'</span></div></div>'
+      +'<div class="pays" role="radiogroup" aria-label="Payment method">'+methods+'</div>'
+      +'<p class="m-note"><b>Demo payment.</b> Online payments switch on when Cravdo goes live, so no money is charged here. To submit your details today, send them to us on WhatsApp.</p>';
+    foot('<div class="tot"><small>Total</small><b>'+rs(p.price)+'</b></div><div class="acts"><a class="btn ghost" target="_blank" rel="noopener" href="'+waLink(dietText())+'">Send details on WhatsApp</a><button type="button" class="btn" data-act="dietPay">Pay '+rs(p.price)+' (demo)</button></div>');
+  }
+
+  function doneText(){
+    var p=planOf();
+    if(p.id==='p6')return 'We will reach you to schedule your 15-minute expert session';
+    if(p.id==='p7')return 'We will reach you to start your 1-month expert chat';
+    var what=p.inc==='both'?'diet chart and workout plan':(p.inc==='diet'?'diet chart':(p.inc==='workout'?'workout plan':(D.pick==='Workout Plan'?'workout plan':'diet chart')));
+    return 'Your personalized '+what+' will reach you';
+  }
+  function viewDietDone(){
+    head('Diet & Workout','Thank you',false);
+    mBody.innerHTML='<div class="done"><div class="check"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M8 19l7 7 13-14"/></svg></div>'
+      +'<h3>Please wait 24–48 hours</h3>'
+      +'<p>'+doneText()+' on WhatsApp ('+esc(D.wa)+')'+(D.email.trim()?' and by email ('+esc(D.email.trim())+')':'')+'.</p>'
+      +'<div class="oid"><b id="oidTxt">'+D.ref+'</b><button type="button" class="copy" data-act="copyid" style="color:inherit">Copy</button></div>'
+      +'<div class="acts"><a class="btn" target="_blank" rel="noopener" href="'+waLink(dietText())+'">Send my details on WhatsApp</a><button type="button" class="btn ghost" data-close>Done</button></div>'
+      +'<p class="m-small">If WhatsApp did not open, tap the button above to send your details to Cravdo.</p></div>';
+    ST.orderId=D.ref; foot('');
+  }
+
+  modal.addEventListener('change',function(ev){
+    var t=ev.target, g=t.getAttribute&&t.getAttribute('data-g'), f=t.getAttribute&&t.getAttribute('data-f');
+    if(g){
+      var v=t.value, a=D[g];
+      if(t.checked){if(a.indexOf(v)<0)a.push(v)} else D[g]=a.filter(function(x){return x!==v});
+      if(g==='health'){
+        if(v===NONE&&t.checked){
+          D.health=[NONE];
+          [].forEach.call(mBody.querySelectorAll('input[data-g="health"]'),function(i){if(i!==t)i.checked=false});
+          mBody.querySelectorAll('[data-sp="hother"]')[0].hidden=true;
+        } else if(t.checked){
+          D.health=D.health.filter(function(x){return x!==NONE});
+          [].forEach.call(mBody.querySelectorAll('input[data-g="health"]'),function(i){if(i.value===NONE)i.checked=false});
+        }
+        var nd=needDet(); $('#hdetWrap').hidden=!nd;
+        $('#healthNote').hidden=!nd;
+      }
+      var key=t.getAttribute('data-spkey');
+      if(key){var sp=mBody.querySelector('[data-sp="'+key+'"]');if(sp){sp.hidden=!t.checked;if(t.checked)sp.focus()}}
+    } else if(f==='terms'){ D.terms=t.checked }
+    else if(f==='plan'){ D.plan=t.value; if(planOf().inc!=='either')D.pick=''; syncBlocks() }
+    else if(f==='pick'){ D.pick=t.value; syncBlocks() }
+    else if(f==='exp'){ D.exp=t.value }
+    else if(f==='hunit'){ D.hunit=t.value; toggleH() }
+  });
+  modal.addEventListener('input',function(ev){
+    var t=ev.target, f=t.getAttribute&&t.getAttribute('data-f'), sp=t.getAttribute&&t.getAttribute('data-sp');
+    if(sp)D.sp[sp]=t.value;
+    else if(f&&f!=='terms'&&f!=='plan'&&f!=='pick'&&f!=='exp'&&f!=='hunit'&&t.type!=='checkbox')D[f]=t.value;
+  });
+
+
+  /* ===== mail-style forms (founder, care, bulk) ===== */
+  var MSG={};
+  function mailHref(to,subject,text){return 'mailto:'+to+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(text)}
+  function sendPanel(key,to,subject,text){
+    MSG[key]=text;
+    return '<div class="done sendpanel"><div class="check"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M8 19l7 7 13-14"/></svg></div>'
+      +'<h3>Your message is ready</h3>'
+      +'<p>This page cannot send email by itself yet, so choose how to send it. Either takes one tap.</p>'
+      +'<div class="acts"><a class="btn" href="'+mailHref(to,subject,text)+'">Email '+esc(to)+'</a>'
+      +'<a class="btn ghost" target="_blank" rel="noopener" href="'+waLink(text)+'">Send on WhatsApp</a>'
+      +'<button type="button" class="btn ghost" data-mact="copy" data-key="'+key+'">Copy message</button></div>'
+      +'<p class="m-small">Email goes to <b>'+esc(to)+'</b>. If your email app does not open, copy the message and send it from any mail app.</p>'
+      +'<button type="button" class="linkbtn" data-mact="edit" data-key="'+key+'">Edit my message</button></div>';
+  }
+  function chkFields(spec,get){
+    for(var i=0;i<spec.length;i++){
+      var s=spec[i], v=String(get(s[0])||'').trim();
+      if(s[2]==='opt')continue;
+      if(!v)return {n:s[0],m:'Please fill in: '+s[1].toLowerCase()+'.'};
+      if(s[2]==='phone'){var ph=v.replace(/[\s-]/g,'').replace(/^(\+91|91|0)(?=\d{10}$)/,'');if(!/^[6-9]\d{9}$/.test(ph))return {n:s[0],m:'Please enter a valid 10-digit phone number.'}}
+      if(s[2]==='email'&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v))return {n:s[0],m:'That email address does not look right.'};
+    }
+    return null;
+  }
+  function fieldText(spec,get){return spec.map(function(s){return s[1]+': '+(String(get(s[0])||'').trim()||'not given')}).join('\n')}
+
+  var FORMS={
+    founder:{id:'#fFounder',to:'azym@cravdo.in',subject:'Message for the founder',intro:'Hi Azym, I am writing from the Cravdo website.',
+      spec:[['name','Name','req'],['phone','Phone number','phone'],['email','Email','email'],['city','City','req'],['insta','Instagram','opt'],['message','Message','req']]},
+    care:{id:'#fCare',to:'hi@cravdo.in',subject:'Feedback and complaints',intro:'Hi Cravdo, I would like to share feedback or a complaint.',
+      spec:[['name','Name','req'],['phone','Phone number','phone'],['email','Email','email'],['order','Order ID','opt'],['message','Concern','req']]}
+  };
+  Object.keys(FORMS).forEach(function(k){
+    var c=FORMS[k], form=$(c.id), box=form.parentNode, err=form.querySelector('.err');
+    form.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var get=function(n){return form.elements[n]?form.elements[n].value:''};
+      var bad=chkFields(c.spec,get);
+      if(bad){err.textContent=bad.m;form.elements[bad.n].focus();return}
+      err.textContent='';
+      var panel=document.createElement('div');panel.id='sent-'+k;
+      panel.innerHTML=sendPanel(k,c.to,c.subject,c.intro+'\n\n'+fieldText(c.spec,get));
+      form.hidden=true;box.appendChild(panel);
+    });
+  });
+  document.addEventListener('click',function(ev){
+    var b=ev.target.closest('[data-mact]');if(!b)return;
+    var a=b.getAttribute('data-mact'), k=b.getAttribute('data-key');
+    if(a==='copy'){
+      var ok=function(){say('Message copied')}, bad=function(){say('Copy is not available here. Use email or WhatsApp instead.')};
+      try{navigator.clipboard.writeText(MSG[k]).then(ok,bad)}catch(e){bad()}
+    } else if(a==='edit'){
+      if(k==='bulk'){go('bulk')}
+      else{var p=$('#sent-'+k);if(p)p.remove();$(FORMS[k].id).hidden=false}
+    }
+  });
+
+  /* regular and bulk orders */
+  var B={name:'',phone:'',email:'',type:'',qty:'',freq:'',notes:''};
+  var BSPEC=[['name','Name','req'],['phone','Phone number','phone'],['email','Email','email'],['type','Business or bulk order','req'],['qty','Quantity','req'],['freq','Frequency','req'],['notes','Notes','opt']];
+  var FREQ=['Daily','Every 2 days','Every 4 days','Weekly','Monthly'];
+  function viewBulk(){
+    head('Regular & bulk orders','Contact for Bulk Order',false);
+    var rad=function(key,val){return '<label class="tick"><input type="radio" name="b-'+key+'" data-b="'+key+'" value="'+esc(val)+'"'+(B[key]===val?' checked':'')+'><span>'+esc(val)+'</span></label>'};
+    mBody.innerHTML='<p class="m-note">Tell us what you need and how often. Every field is required except notes.</p>'
+      +'<form class="form" id="bForm" novalidate>'
+      +'<div class="two"><label>Name<input id="b-name" data-b="name" autocomplete="name" value="'+esc(B.name)+'"></label><label>Phone number<input id="b-phone" data-b="phone" type="tel" inputmode="tel" autocomplete="tel" value="'+esc(B.phone)+'"></label></div>'
+      +'<label>Email<input id="b-email" data-b="email" type="email" autocomplete="email" value="'+esc(B.email)+'"></label>'
+      +'<fieldset class="fs" id="b-type"><legend>This order is for</legend><div class="chips">'+rad('type','Business')+rad('type','Bulk order')+'</div></fieldset>'
+      +'<label>Quantity you are planning<input id="b-qty" data-b="qty" placeholder="e.g. 50 pieces per delivery" value="'+esc(B.qty)+'"></label>'
+      +'<fieldset class="fs" id="b-freq"><legend>Frequency</legend><div class="chips">'+FREQ.map(function(f){return rad('freq',f)}).join('')+'</div></fieldset>'
+      +'<label>Notes (optional)<textarea id="b-notes" data-b="notes" placeholder="Products you want, delivery area, anything else">'+esc(B.notes)+'</textarea></label>'
+      +'<p class="err" id="bErr" role="alert"></p></form>';
+    foot('<div class="tot"><small>Next</small><b>Review and send</b></div><div class="acts"><button type="button" class="btn" data-act="bulkNext">Continue</button></div>');
+  }
+  function viewBulkDone(){
+    head('Regular & bulk orders','Almost done',false);
+    var get=function(n){return B[n]};
+    mBody.innerHTML=sendPanel('bulk','hi@cravdo.in','Regular and bulk order request','Hi Cravdo, I would like to set up regular or bulk orders.\n\n'+fieldText(BSPEC,get));
+    foot('');
+  }
+  modal.addEventListener('input',function(ev){var k=ev.target.getAttribute&&ev.target.getAttribute('data-b');if(k)B[k]=ev.target.value});
+  modal.addEventListener('change',function(ev){var k=ev.target.getAttribute&&ev.target.getAttribute('data-b');if(k)B[k]=ev.target.value});
+  modal.addEventListener('click',function(ev){
+    if(!ev.target.closest('[data-act="bulkNext"]'))return;
+    var bad=chkFields(BSPEC,function(n){return B[n]});
+    if(bad){
+      var e=$('#bErr');if(e)e.textContent=bad.m;
+      var el=mBody.querySelector('#b-'+bad.n)||mBody.querySelector('[data-b="'+bad.n+'"]');
+      if(el){try{el.scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'});el.focus&&el.focus({preventScroll:true})}catch(x){}}
+      return;
+    }
+    go('bulkDone');
+  });
+
+  /* more plans */
+  (function(){
+    var b=$('#morePlansBtn'), m=$('#morePlans');
+    b.addEventListener('click',function(){
+      var open=m.hidden; m.hidden=!open;
+      b.setAttribute('aria-expanded',open?'true':'false');
+      b.innerHTML=open?'Show fewer plans <span aria-hidden="true">▴</span>':'Show more plans <span aria-hidden="true">▾</span>';
+    });
+  })();
+
+  /* mobile menu */
+  (function(){
+    var hamb=$('#hamb'), menu=$('#navMenu');
+    var BARS='<path d="M3 6h14M3 10h14M3 14h14"/>', CLOSE='<path d="M5 5l10 10M15 5L5 15"/>';
+    function setMenu(open){
+      menu.hidden=!open; hamb.setAttribute('aria-expanded',open?'true':'false');
+      hamb.setAttribute('aria-label',open?'Close menu':'Open menu');
+      hamb.querySelector('svg').innerHTML=open?CLOSE:BARS;
+    }
+    hamb.addEventListener('click',function(){setMenu(menu.hidden)});
+    menu.addEventListener('click',function(ev){if(ev.target.closest('a'))setMenu(false)});
+    document.addEventListener('click',function(ev){if(!menu.hidden&&!ev.target.closest('#navMenu')&&!ev.target.closest('#hamb'))setMenu(false)});
+    document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&!menu.hidden){setMenu(false);hamb.focus()}});
+    window.addEventListener('resize',function(){if(window.innerWidth>1180)setMenu(false)});
+  })();
+
+  /* notices */
+  (function(){
+    var items=[].slice.call(document.querySelectorAll('#tl > li')), more=$('#nMore'), chips=[].slice.call(document.querySelectorAll('.nf button'));
+    var yr='all', open=false, LIM=3;
+    function paint(){
+      var shown=0,total=0;
+      items.forEach(function(li){
+        var m=yr==='all'||li.getAttribute('data-yr')===yr;
+        if(!m){li.hidden=true;return}
+        total++;
+        var vis=open||shown<LIM; if(vis)shown++;
+        li.hidden=!vis; if(vis)li.classList.add('in');
+      });
+      more.hidden=total<=LIM;
+      more.setAttribute('aria-expanded',open?'true':'false');
+      more.querySelector('span').textContent=open?'Show less':'Show more';
+      req();
+    }
+    chips.forEach(function(c){c.addEventListener('click',function(){
+      yr=c.getAttribute('data-yr');open=false;
+      chips.forEach(function(x){var on=x===c;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on?'true':'false')});
+      paint();
+    })});
+    more.addEventListener('click',function(){open=!open;paint()});
+    paint();
+  })();
+
+  /* gallery controls */
+  (function(){
+    var down=false,sx=0,sl=0;
+    ['wheel','touchstart','keydown'].forEach(function(e){gal.addEventListener(e,function(){galTouched=true},{passive:true})});
+    gal.addEventListener('pointerdown',function(ev){
+      galTouched=true;
+      if(ev.pointerType==='mouse'){down=true;sx=ev.clientX;sl=gal.scrollLeft;gal.setPointerCapture(ev.pointerId);gal.style.cursor='grabbing'}
+    });
+    gal.addEventListener('pointermove',function(ev){if(down)gal.scrollLeft=sl-(ev.clientX-sx)});
+    var up=function(){down=false;gal.style.cursor=''};
+    gal.addEventListener('pointerup',up);gal.addEventListener('pointercancel',up);
+    var by=function(d){galTouched=true;gal.scrollBy({left:d*gal.clientWidth*.7,behavior:reduce?'auto':'smooth'})};
+    $('#gPrev').addEventListener('click',function(){by(-1)});
+    $('#gNext').addEventListener('click',function(){by(1)});
+  })();
+
   /* QR */
-  var box=$('#qrBox'), input=$('#qrLink');
+  var box=$('#qrBox');
   function drawQR(text){
     box.innerHTML='';
-    if(!text || typeof QRCode==='undefined'){
-      var s=document.createElement('span'); s.textContent=text?'QR could not load.':'Add your website link below to make the QR.'; box.appendChild(s); return;
-    }
-    try{
-      new QRCode(box,{text:text,width:208,height:208,colorDark:'#23375A',colorLight:'#FFFFFF',correctLevel:QRCode.CorrectLevel.M});
-    }catch(e){var s2=document.createElement('span'); s2.textContent='That link is too long for a QR code.'; box.appendChild(s2)}
+    if(typeof QRCode==='undefined'){var sp=document.createElement('span');sp.textContent='QR code could not load. Visit cravdo.in';box.appendChild(sp);return}
+    try{new QRCode(box,{text:text,width:208,height:208,colorDark:'#23375A',colorLight:'#FFFFFF',correctLevel:QRCode.CorrectLevel.M})}
+    catch(e){var s2=document.createElement('span');s2.textContent='QR code could not load. Visit cravdo.in';box.appendChild(s2)}
   }
-  var here=''; try{here=String(window.location.href).split('#')[0]}catch(e){}
-  if(/^https?:\/\//i.test(here)) input.value=here;
-  drawQR(input.value.trim());
-  var qt;
-  input.addEventListener('input',function(){clearTimeout(qt);qt=setTimeout(function(){drawQR(input.value.trim())},250)});
+  drawQR('https://cravdo.in');
 })();
 </script>
 
