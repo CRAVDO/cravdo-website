@@ -65,10 +65,14 @@ h1,h2,h3,p{margin:0}
 /* hero */
 .hero{height:250svh;position:relative}
 .hero-stage{position:sticky;top:0;height:100svh;overflow:hidden;background:var(--hero-bg)}
-.hero-copy{position:absolute;inset:0 0 58svh 0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:76px 16px 8px;gap:6px;will-change:transform,opacity}
-.wordmark{font-family:var(--f-display);font-weight:700;font-size:clamp(3.4rem,14.5vw,10.5rem);line-height:.9;letter-spacing:.03em;color:var(--wm);text-transform:uppercase}
+.hero-copy{position:absolute;inset:0 0 58svh 0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:88px 16px 8px;gap:6px;will-change:transform,opacity}
+.wordmark{font-family:var(--f-display);font-weight:700;font-size:clamp(3.4rem,min(14.5vw,17svh),10.5rem);line-height:.9;letter-spacing:.03em;color:var(--wm);text-transform:uppercase}
 .wordmark span{display:inline-block;animation:rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*70ms + 120ms)}
 @keyframes rise{from{transform:translateY(45%);opacity:0}}
+.hero-ic{display:flex;gap:12px;margin-bottom:6px}
+.hero-ic a{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--on-a);color:var(--on-a);background:var(--card-a);box-shadow:0 8px 18px -10px rgba(35,55,90,.55);transition:transform .2s,box-shadow .2s}
+.hero-ic a:hover{transform:translateY(-2px);box-shadow:0 12px 22px -10px rgba(35,55,90,.6)}
+.hero-ic svg{width:22px;height:22px}
 .hero-copy .script{font-size:clamp(1.5rem,3.6vw,2.4rem);color:var(--fg)}
 .hero-arch{position:absolute;left:50%;bottom:0;width:min(62vw,420px);height:58svh;transform:translateX(-50%);border-radius:210px 210px 0 0;overflow:hidden;background:var(--card-b);will-change:width,height}
 .hero-arch img{width:100%;height:100%;object-fit:cover;object-position:28% 42%;transform:scale(1.1);will-change:transform}
@@ -414,6 +418,10 @@ body,.sheet:not(.connect),.svc,.space,.founder{background-color:var(--bg);backgr
 @media (prefers-reduced-motion:reduce){.btn.special::after{animation:none}}
 
 /* round 4 */
+.livecart{display:grid;place-items:center;flex:0 0 auto;width:50px;height:50px;border-radius:50%;background:var(--card-b);color:var(--on-b);box-shadow:0 8px 18px -10px rgba(35,55,90,.6);transition:transform .2s}
+.livecart:hover{transform:translateY(-2px)}
+.livecart svg{width:30px;height:30px}
+@media (max-width:560px){.livecart{width:44px;height:44px}.livecart svg{width:26px;height:26px}}
 .navbtns{display:flex;align-items:center;gap:8px}
 .btn.sm.special{border-width:1.5px}
 .notices{display:grid;gap:22px;min-width:0}
@@ -436,7 +444,7 @@ body,.sheet:not(.connect),.svc,.space,.founder{background-color:var(--bg);backgr
 @media (max-width:1180px){.links{display:none}}
 @media (max-width:760px){.brand span{display:none}}
 @media (max-width:420px){.photo{width:calc(100% - 18px);margin-inline:0}}
-@media (max-width:560px){.navbtns{gap:6px}.btn.sm.ord span{display:none}.btn.sm.ord{padding:10px 12px}.btn.sm.special{padding:10px 12px;font-size:.84rem}.btn.sm.carts svg{display:none}}
+@media (max-width:560px){.navbtns{gap:6px}.btn.sm.ord span{display:none}.btn.sm.ord{padding:10px 12px}.btn.sm.special{padding:10px 12px;font-size:.84rem}}
 
 /* baking journey */
 .bake{background-color:var(--bg);background-image:linear-gradient(var(--wash),var(--wash)),url(img/plaid-tile.jpg);background-size:auto,360px auto;padding-block:clamp(72px,10vw,130px)}
@@ -468,6 +476,45 @@ body,.sheet:not(.connect),.svc,.space,.founder{background-color:var(--bg);backgr
 @media (max-width:400px){.navbtns{gap:4px}.btn.sm.special,.btn.sm.ord{padding:9px 10px}.btn.sm.special{font-size:.8rem}.nav{padding-inline:6px 6px;gap:6px}}
 @media (prefers-reduced-motion:reduce){.menu{animation:none}}
 
+/* reviews */
+.rev{padding-block:clamp(64px,9vw,110px);background-color:var(--bg);overflow:hidden}
+.rev-head{display:grid;gap:12px;justify-items:start;margin-bottom:clamp(24px,4vw,40px)}
+.rev-sum{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--muted)}
+.stars{display:inline-flex;gap:2px;color:#e9b52a;font-size:1.15rem;letter-spacing:1px}
+.rev-wall{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);margin-bottom:clamp(28px,5vw,48px)}
+.rev-track{display:flex;gap:18px;width:max-content;animation:revslide 50s linear infinite;padding:8px 0}
+.rev-wall:hover .rev-track{animation-play-state:paused}
+@keyframes revslide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.rcard{flex:0 0 min(320px,78vw);display:grid;gap:8px;align-content:start;padding:22px;border-radius:22px;background:var(--surface);border:1px solid var(--line);box-shadow:0 14px 30px -22px rgba(20,32,58,.5)}
+.rcard .rfor{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.rcard p{margin:0;color:var(--fg);font-size:.98rem}
+.rcard .rby{font-weight:600;color:var(--muted);font-size:.9rem}
+.rev-empty{padding:26px;border-radius:22px;border:1.5px dashed var(--line);color:var(--muted);margin-bottom:clamp(28px,5vw,48px);max-width:640px}
+.rev-empty b{display:block;color:var(--fg);font-family:var(--f-display);font-weight:500;font-size:1.2rem;margin-bottom:4px}
+.rform{display:grid;gap:22px;padding:clamp(22px,4vw,36px);border-radius:28px;background:var(--surface);border:1px solid var(--line);max-width:760px}
+.rform h3{margin:0;font-family:var(--f-display);font-weight:500;font-size:1.5rem}
+.rform fieldset{border:0;margin:0;padding:0;display:grid;gap:10px;min-width:0}
+.rform legend{padding:0;margin-bottom:8px;font-weight:600}
+.rchips{display:flex;flex-wrap:wrap;gap:8px}
+.rchips button{padding:9px 14px;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--fg);font:500 .92rem var(--f-body);cursor:pointer}
+.rchips button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.rstars{display:flex;gap:6px}
+.rstars button{width:46px;height:46px;border-radius:14px;border:1.5px solid var(--line);background:transparent;font-size:1.5rem;line-height:1;color:var(--muted);cursor:pointer}
+.rstars button.on{color:#e9b52a;border-color:#e9b52a}
+.rform input[type=text],.rform textarea{width:100%;box-sizing:border-box;padding:13px 16px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);color:var(--fg);font:400 1rem var(--f-body)}
+.rform textarea{min-height:110px;resize:vertical}
+.rform .hint{font-size:.85rem;color:var(--muted);margin:0}
+.rgoogle{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;border:1.5px dashed var(--line);color:var(--muted);font-size:.9rem}
+.rerr{color:#b3261e;font-weight:600;margin:0;min-height:1.2em}
+.rthanks{display:grid;gap:10px}
+@media (prefers-reduced-motion:reduce){.rev-track{animation:none}.rev-wall{overflow-x:auto}}
+/* mail popover */
+.mpop{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:16px;background:rgba(20,32,58,.45)}
+.mpop[hidden]{display:none}
+.mpop-card{width:min(380px,100%);display:grid;gap:12px;padding:24px;border-radius:26px;background:var(--surface);color:var(--fg);border:1px solid var(--line);box-shadow:0 30px 70px -20px rgba(0,0,0,.5)}
+.mpop-card h3{margin:0;font-family:var(--f-display);font-weight:500;font-size:1.3rem}
+.mpop-card b{overflow-wrap:anywhere}
+.mpop-card .btn{justify-content:center;text-align:center}
 /* noticeboard */
 .board{padding-block:clamp(64px,9vw,110px) clamp(88px,11vw,150px)}
 .board-head{display:grid;gap:14px;justify-items:start;margin-bottom:clamp(28px,5vw,48px)}
@@ -526,10 +573,10 @@ body,.sheet:not(.connect),.svc,.space,.founder{background-color:var(--bg);backgr
     <a href="#connect" data-go="connect">Connect</a>
   </div>
   <div class="navbtns">
-    <a class="btn sm special carts" href="#carts" data-go="carts"><svg class="stk" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.500-5.600-6.500-11a6.500 6.500 0 0 1 13 0c0 5.400-6.500 11-6.500 11z"/><circle cx="12" cy="10" r="2.300"/></svg><span>Carts</span></a>
     <button class="btn sm ord" type="button" data-open="order">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.200 11H6.200z"/><path d="M9 8V7a3 3 0 0 1 6 0v1"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.500 3.500h2.800l2.200 11h10.200l2-7.500H6.200"/><circle cx="9.500" cy="19.500" r="1.600"/><circle cx="17" cy="19.500" r="1.600"/></svg>
       <span>Order now</span></button>
+    <a class="livecart" href="#carts" data-go="carts" aria-label="Live carts" title="Live carts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8.500h14l-1.200 11.500H6.200z"/><path d="M9 8.500V7a3 3 0 0 1 6 0v1.500"/><path d="M12 17.200s-2.600-2.100-2.600-4.100a2.600 2.600 0 0 1 5.200 0c0 2-2.600 4.100-2.600 4.100z"/><circle cx="12" cy="13.100" r=".9" fill="currentColor" stroke="none"/></svg></a>
     <a class="btn sm special" href="#founder" data-go="founder"><span>Azym-founder</span></a>
     <button class="hamb" id="hamb" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
   </div>
@@ -548,6 +595,11 @@ body,.sheet:not(.connect),.svc,.space,.founder{background-color:var(--bg);backgr
 <header class="hero" id="top">
   <div class="hero-stage">
     <div class="hero-copy">
+      <div class="hero-ic" role="group" aria-label="Contact Cravdo">
+        <a href="https://www.instagram.com/cravdo/" target="_blank" rel="noopener" aria-label="Cravdo on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://wa.me/917900690012" target="_blank" rel="noopener" aria-label="Chat with Cravdo on WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.500l1.300-4.600A8.500 8.500 0 1 1 8.200 19.300z"/><path d="M9 8.800c0 3.200 3 6.200 6.200 6.200l1.100-1.300-2-1-.9.700c-.9-.4-1.700-1.200-2.100-2.100l.7-.9-1-2z" fill="currentColor" stroke="none"/></svg></a>
+        <a href="mailto:hi@cravdo.in" aria-label="Email Cravdo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7.500l8 6 8-6"/></svg></a>
+      </div>
       <p class="eyebrow">Healthier foods · Since 2025</p>
       <h1 class="wordmark" aria-label="Cravdo"><span style="--i:0">C</span><span style="--i:1">R</span><span style="--i:2">A</span><span style="--i:3">V</span><span style="--i:4">D</span><span style="--i:5">O</span></h1>
       <p class="script">Bite Me, I’m Cravdo.</p>
@@ -602,6 +654,14 @@ body,.sheet:not(.connect),.svc,.space,.founder{background-color:var(--bg);backgr
 
     </div>
     <div class="svc-grid">
+      <article class="svc-card cart rv" id="carts" style="--d:.1s">
+        <span class="tag soon">This option is coming soon</span>
+        <h3>Cravdo Carts</h3>
+        <p>Trackable Cravdo carts are on their way. Soon you will open a map, spot the nearest cart, order from its menu, pay, and collect with your order ID.</p>
+        <div class="mini" id="miniMap" aria-hidden="true"></div>
+        <button class="btn" type="button" data-open="cart">Order From Cravdo Cart near you</button>
+        <p class="note">Try the demo to see how it will work. No real carts or payments yet.</p>
+      </article>
       <article class="svc-card rv">
         <span class="tag soon">Online orders coming soon</span>
         <span class="tag">Delhi NCR only</span>
@@ -613,14 +673,6 @@ body,.sheet:not(.connect),.svc,.space,.founder{background-color:var(--bg);backgr
           <li>The full Cravdo menu is coming soon</li>
         </ul>
         <button class="btn" type="button" data-open="order">Choose from the menu</button>
-      </article>
-      <article class="svc-card cart rv" id="carts" style="--d:.1s">
-        <span class="tag soon">This option is coming soon</span>
-        <h3>Cravdo Carts</h3>
-        <p>Trackable Cravdo carts are on their way. Soon you will open a map, spot the nearest cart, order from its menu, pay, and collect with your order ID.</p>
-        <div class="mini" id="miniMap" aria-hidden="true"></div>
-        <button class="btn" type="button" data-open="cart">Order From Cravdo Cart near you</button>
-        <p class="note">Try the demo to see how it will work. No real carts or payments yet.</p>
       </article>
       <article class="svc-card diet rv" id="diet" style="--d:.14s">
         <div class="dtxt">
@@ -738,6 +790,35 @@ body,.sheet:not(.connect),.svc,.space,.founder{background-color:var(--bg);backgr
       <p class="script">Eat sweet, feel good, live well.</p>
       <p class="note">Concept render of the Cravdo café.</p>
     </div></div>
+  </div>
+</section>
+
+<section class="rev" id="reviews" aria-label="Customer reviews">
+  <div class="wrap">
+    <div class="rev-head">
+      <p class="eyebrow rv">Reviews</p>
+      <h2 class="h2 rv" style="--d:.08s">What people say.</h2>
+      <p class="rev-sum rv" style="--d:.14s" id="revSum"></p>
+    </div>
+  </div>
+  <div id="revWall"></div>
+  <div class="wrap">
+    <p class="eyebrow" style="margin:0 0 10px">Video reviews</p>
+    <div class="rev-empty" style="margin-bottom:clamp(28px,5vw,48px)"><b>Video reviews are coming.</b>Tried Cravdo? Add a link to your video review in the form below and we will feature it here once it is verified.</div>
+    <form class="rform rv" id="revForm" novalidate>
+      <h3>Leave a review</h3>
+      <fieldset><legend>1. What did you try?</legend><div class="rchips" id="rWhat"></div></fieldset>
+      <fieldset><legend>2. How many stars?</legend><div class="rstars" id="rStars" role="radiogroup" aria-label="Star rating"></div></fieldset>
+      <fieldset><legend>3. Your review</legend><textarea id="rText" maxlength="600" placeholder="Tell us what you liked, and what we can do better."></textarea></fieldset>
+      <fieldset><legend>4. Who are you?</legend>
+        <input type="text" id="rName" maxlength="60" placeholder="Your name" autocomplete="name">
+        <input type="text" id="rVideo" maxlength="200" placeholder="Video review link (optional)" inputmode="url">
+        <div class="rgoogle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 12h8"/></svg>Sign in with Google switches on when Cravdo goes live on cravdo.in. Until then every review is checked by us before it appears.</div>
+      </fieldset>
+      <p class="rerr" id="rErr" role="alert"></p>
+      <div><button type="submit" class="btn">Send my review</button></div>
+      <p class="hint">Your review opens in WhatsApp so it reaches Cravdo. Approved reviews join the wall above.</p>
+    </form>
   </div>
 </section>
 
@@ -878,6 +959,7 @@ body,.sheet:not(.connect),.svc,.space,.founder{background-color:var(--bg);backgr
     <footer class="m-foot" id="mFoot" hidden></footer>
   </div>
 </div>
+<div class="mpop" id="mpop" hidden role="dialog" aria-modal="true" aria-label="Email Cravdo"><div class="mpop-card"><h3>Email Cravdo</h3><p style="margin:0;color:var(--muted)">Write to <b id="mpTo">hi@cravdo.in</b></p><a class="btn" id="mpGmail" target="_blank" rel="noopener" href="#">Write in Gmail</a><a class="btn ghost" id="mpApp" href="#" target="_top">Open my mail app</a><button type="button" class="btn ghost" id="mpCopy">Copy email address</button><button type="button" class="btn ghost" id="mpClose">Close</button></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -1546,6 +1628,73 @@ body,.sheet:not(.connect),.svc,.space,.founder{background-color:var(--bg);backgr
     }
     go('bulkDone');
   });
+
+  /* reviews */
+  (function(){
+    var REVIEWS=[]; /* approved reviews: {what,stars,text,name} */
+    var WHAT=['Diet Chart','Workout Plan','Diet + Workout','Expert plans','Brownies','Cakes','Bento','Breads','Donuts','Something else'];
+    var R={what:'',stars:0};
+    function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+    function stars(n){return '\u2605\u2605\u2605\u2605\u2605'.slice(0,n)+'\u2606\u2606\u2606\u2606\u2606'.slice(0,5-n)}
+    var wall=$('#revWall'), sum=$('#revSum');
+    if(REVIEWS.length){
+      var avg=REVIEWS.reduce(function(a,r){return a+r.stars},0)/REVIEWS.length;
+      sum.innerHTML='<span class="stars" aria-hidden="true">'+stars(Math.round(avg))+'</span>'+avg.toFixed(1)+' from '+REVIEWS.length+(REVIEWS.length===1?' review':' reviews');
+      var w=el('div','rev-wall'), tr=el('div','rev-track');
+      for(var k=0;k<2;k++)REVIEWS.forEach(function(r){
+        var c=el('article','rcard'); if(k)c.setAttribute('aria-hidden','true');
+        var st=el('span','stars',stars(r.stars));
+        c.appendChild(st);c.appendChild(el('span','rfor',r.what));c.appendChild(el('p',null,r.text));c.appendChild(el('span','rby',r.name));
+        tr.appendChild(c);
+      });
+      w.appendChild(tr);wall.appendChild(w);
+    }else{
+      sum.textContent='No reviews yet.';
+      var wrap=el('div','wrap'),e=el('div','rev-empty');
+      e.innerHTML='<b>Be among the first to review Cravdo.</b>Tried a dessert, a diet chart or a workout plan? Tell us how it went below.';
+      wrap.appendChild(e);wall.appendChild(wrap);
+    }
+    var chips=$('#rWhat');
+    WHAT.forEach(function(w){var b=el('button',null,w);b.type='button';b.setAttribute('aria-pressed','false');b.addEventListener('click',function(){R.what=w;[].forEach.call(chips.children,function(x){x.setAttribute('aria-pressed',x===b?'true':'false')})});chips.appendChild(b)});
+    var sb=$('#rStars');
+    for(var i=1;i<=5;i++)(function(n){var b=el('button',null,'\u2605');b.type='button';b.setAttribute('role','radio');b.setAttribute('aria-checked','false');b.setAttribute('aria-label',n+(n===1?' star':' stars'));b.addEventListener('click',function(){R.stars=n;[].forEach.call(sb.children,function(x,j){x.classList.toggle('on',j<n);x.setAttribute('aria-checked',j===n-1?'true':'false')})});sb.appendChild(b)})(i);
+    $('#revForm').addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var text=$('#rText').value.trim(), name=$('#rName').value.trim(), vid=$('#rVideo').value.trim(), err=$('#rErr');
+      if(!R.what)return err.textContent='Please choose what you tried.';
+      if(!R.stars)return err.textContent='Please pick a star rating.';
+      if(text.length<10)return err.textContent='Please write a few words about your experience.';
+      if(!name)return err.textContent='Please add your name.';
+      err.textContent='';
+      var msg='New Cravdo review\nFor: '+R.what+'\nRating: '+R.stars+'/5 '+stars(R.stars)+'\nName: '+name+'\nReview: '+text+(vid?'\nVideo: '+vid:'');
+      var url='https://wa.me/917900690012?text='+encodeURIComponent(msg);
+      var f=$('#revForm'); f.innerHTML='<div class="rthanks"><h3>Thank you, '+name.replace(/[<>&]/g,'')+'!</h3><p>Your review is ready to send. If WhatsApp did not open, tap the button.</p><div><a class="btn" target="_blank" rel="noopener" href="'+url+'">Send on WhatsApp</a></div></div>';
+      try{window.open(url,'_blank','noopener')}catch(e){}
+    });
+  })();
+
+  /* mail popover */
+  (function(){
+    var pop=$('#mpop'), to='';
+    function close(){pop.hidden=true}
+    document.addEventListener('click',function(ev){
+      var a=ev.target.closest&&ev.target.closest('a[href^="mailto:"]');
+      if(!a||a.id==='mpApp')return;
+      ev.preventDefault();
+      var u=a.getAttribute('href').slice(7), q=u.split('?'); to=q[0]; var p=new URLSearchParams(q[1]||'');
+      $('#mpTo').textContent=to;
+      $('#mpGmail').href='https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(to)+(p.get('subject')?'&su='+encodeURIComponent(p.get('subject')):'');
+      $('#mpApp').href='mailto:'+u;
+      pop.hidden=false; $('#mpGmail').focus();
+    });
+    $('#mpClose').addEventListener('click',close);
+    pop.addEventListener('click',function(ev){if(ev.target===pop)close()});
+    document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&!pop.hidden)close()});
+    $('#mpCopy').addEventListener('click',function(){
+      var b=this, done=function(){b.textContent='Copied '+to};
+      try{navigator.clipboard.writeText(to).then(done,function(){b.textContent=to})}catch(e){b.textContent=to}
+    });
+  })();
 
   /* more plans */
   (function(){
